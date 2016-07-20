@@ -1,5 +1,7 @@
 ## Developer Machine Setup
 
+Hi it's christine. 
+
 ### Code
 The code is in a [git](https://git-scm.com/) repository.  The repository url is https://github.com/ManifestMike/STAR.git
 
