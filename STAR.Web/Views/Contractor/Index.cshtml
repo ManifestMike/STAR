@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Contractor>
+
+<h2>Contractors</h2>
+
+<a href="@Url.Action("Detail")" class="btn btn-primary">
+    Create New
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+@if ((Model ?? new Contractor[] { }).Any()) {
+
+}
+else {
+    <p>There are no contractors!  @Html.ActionLink("Add one!", "Detail")</p>
+}
