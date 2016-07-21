@@ -141,6 +141,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\STAR.Data\STAR.Data.csproj">
+      <Project>{48212b22-ae1c-4c7e-81b4-3c5de23b0744}</Project>
+      <Name>STAR.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\STAR.Domain\STAR.Domain.csproj">
+      <Project>{2ee42c3b-9ebd-4da0-ad30-7aee9a1e0545}</Project>
+      <Name>STAR.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
