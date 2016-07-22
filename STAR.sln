@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Data", "STAR.Data\STAR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Domain", "STAR.Domain\STAR.Domain.csproj", "{2EE42C3B-9EBD-4DA0-AD30-7AEE9A1E0545}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Web.Tests", "STAR.Web.Tests\STAR.Web.Tests.csproj", "{39AC4323-EBDB-4A87-B4D2-84799526A98D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{2EE42C3B-9EBD-4DA0-AD30-7AEE9A1E0545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EE42C3B-9EBD-4DA0-AD30-7AEE9A1E0545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EE42C3B-9EBD-4DA0-AD30-7AEE9A1E0545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
