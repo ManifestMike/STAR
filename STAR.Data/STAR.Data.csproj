@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201607211806430_Initial schema.Designer.cs">
       <DependentUpon>201607211806430_Initial schema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607261703092_AddSkills.cs" />
+    <Compile Include="Migrations\201607261703092_AddSkills.Designer.cs">
+      <DependentUpon>201607261703092_AddSkills.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607211806430_Initial schema.resx">
       <DependentUpon>201607211806430_Initial schema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261703092_AddSkills.resx">
+      <DependentUpon>201607261703092_AddSkills.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

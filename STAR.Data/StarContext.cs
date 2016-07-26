@@ -1,6 +1,8 @@
 ﻿using STAR.Domain;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace STAR.Data {
     public class StarContext : DbContext {
@@ -15,6 +17,15 @@ namespace STAR.Data {
 
             modelBuilder.Entity<Contractor>().Property(c => c.FirstName).IsRequired();
             modelBuilder.Entity<Contractor>().Property(c => c.LastName).IsRequired();
+
+            modelBuilder.Entity<Skill>().Property(s => s.Name)
+                .HasMaxLength(40)
+                .IsRequired()
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(new IndexAttribute() { IsUnique = true }));
+
+            modelBuilder.Entity<Skill>().Property(s => s.Description).HasMaxLength(256);
         }
     }
 }
