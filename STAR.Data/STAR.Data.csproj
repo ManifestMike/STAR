@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201607261703092_AddSkills.Designer.cs">
       <DependentUpon>201607261703092_AddSkills.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607261715256_ContractorSkills.cs" />
+    <Compile Include="Migrations\201607261715256_ContractorSkills.Designer.cs">
+      <DependentUpon>201607261715256_ContractorSkills.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607261703092_AddSkills.resx">
       <DependentUpon>201607261703092_AddSkills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261715256_ContractorSkills.resx">
+      <DependentUpon>201607261715256_ContractorSkills.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,6 +31,12 @@ You should also get in the habit of running `update-database` every time you get
 
 
 ## Database Schema Changes
+### Making Changes
+1. Create your model class
+1. In STAR.Data.StarContext, configure the model as necessary
+1. In Package Manager Console, ensure that STAR.Data is selected, and type 'add-migration &lt;MigrationName&gt;`.  This will create a migration under STAR.Data.Migrations.
+1. To update your database, run `update-database`.
+
 ### On Update
 As noted above, get in the habit of running `update-database` from the Package Manager Console every time you get the latest version of the code.  You must think of the database schema as part of the commits - not as something separate.
 
