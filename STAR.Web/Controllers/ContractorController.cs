@@ -20,5 +20,9 @@ namespace STAR.Web.Controllers {
         public ActionResult Details() {
             return View();
         }
+
+        public ActionResult Search() {
+            return View();
+        }
     }
 }
