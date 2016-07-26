@@ -22,7 +22,8 @@ namespace STAR.Web.Controllers {
         }
 
         public ActionResult Search() {
-            return View();
+
+            return View(context.Contractors.ToList());
         }
     }
 }
