@@ -8,7 +8,6 @@ The code is in a [git](https://git-scm.com/) repository.  The repository url is 
 
 ### Packages
 - [NuGet](http://www.nuget.org) is used to deliver packages required by the server side code.  As long as your IDE is set to restore packages from the server (which is the default), all NuGet packages will be downloaded with your first build.
-- [bower](http://bower.io) is used to manage client-side packages.  To use bower, you need to have [node.js](http://nodejs.org) installed, first.  Once node is installed, run `bower install` from the `trunk` directory.
 
 ### Database Setup
 
@@ -18,8 +17,7 @@ The code is in a [git](https://git-scm.com/) repository.  The repository url is 
 	- Make sure that you add your account to the list of Administrators
 
 #### Getting Schema Updates
-1. In Visual Studio, open the Package Manager Console, and enter `update-database`.  This will run the migrations to bring your database up to the current version.
-
+1. In Visual Studio, open the Package Manager Console, *make sure that STAR.Data is selected*, and enter `update-database`.  This will run the migrations to bring your database up to the current version.
 
 # Developer Guidelines
 ## Source Control Recommendations
