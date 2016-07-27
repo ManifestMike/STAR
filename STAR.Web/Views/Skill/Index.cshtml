@@ -21,7 +21,7 @@
 
 
         {
-            <li><strong>@s.Name</strong> - @s.Description</li>
+            <li><strong>@s.Name</strong> @if (s.Description != null) {<span>-</span> } @s.Description</li>
             }
         </ul>
         }
