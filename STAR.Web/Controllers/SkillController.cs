@@ -34,7 +34,7 @@ namespace STAR.Web.Controllers {
             if (!Id.HasValue) {
                 return View();
             }
-            return View(); //todo pass in skill
+            return View();
         }
 
         public ActionResult Index() {
