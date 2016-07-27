@@ -1,12 +1,30 @@
-﻿
+﻿@model IEnumerable<STAR.Domain.Contractor>
 @{
     ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
 
+@section scripts {
+    <script type="text/javascript">
+
+
+    $(function (){
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetSkills")'
+        });
+    });
+    </script>
+}
+
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    <em>Insert form here</em>
+    @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+
+}
+
+@if (Model != null)
+{
+    @Html.Partial("ContractorListPartial", Model)
 }
