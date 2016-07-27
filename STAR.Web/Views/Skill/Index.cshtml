@@ -9,7 +9,10 @@
 
 @if ((Model ?? new Skill[] { }).Any())
 {
-    <p>There are @Model.Count() Skills</p>
+    if (Model.Count() == 1)
+    {<p>There is @Model.Count() skill</p>}
+    else
+    {<p>There are @Model.Count() skills</p>}
     <ul>
         @foreach (Skill s in Model.OrderBy(s => s.Name))
         {
