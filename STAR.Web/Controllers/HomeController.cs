@@ -35,9 +35,7 @@ namespace STAR.Web.Controllers {
         //@Post:
         public JsonResult GetSkills(string term) {
             List<string> skills;
-
-            //filter results to be skills present where they intersect with contractors
-            //Right now just doing all skills 
+             
             skills = context.Skills.Where(x => x.Name.StartsWith(term))
                 .Select(y => y.Name).ToList();
 
