@@ -1,1 +1,23 @@
-﻿<h2>Dashboard</h2>
+﻿@model IEnumerable<STAR.Domain.Contractor>
+<h2>Dashboard</h2>
+
+@section scripts {
+<script type="text/javascript">
+  
+
+    $(function (){
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetSkills")'
+        });
+    });
+</script>
+}
+
+<label>Skills: </label>
+@using (Html.BeginForm()) {
+    @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+}
+
+@if(Model != null){
+    @Html.Partial("ContractorListPartial", Model)
+}
