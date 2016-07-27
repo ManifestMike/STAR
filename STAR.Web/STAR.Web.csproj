@@ -169,7 +169,8 @@
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Contractor\Index.cshtml" />
     <Content Include="Views\Contractor\Details.cshtml" />
-    <Content Include="Views\Skill\Skills.cshtml" />
+    <Content Include="Views\Skill\Details.cshtml" />
+    <Content Include="Views\Skill\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

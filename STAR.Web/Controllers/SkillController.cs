@@ -19,7 +19,7 @@ namespace STAR.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Skills(SkillModel model)
+        public ActionResult Details(SkillModel model)
         {
             context.Skills.Add(new Domain.Skill
             { Name = model.SkillName, Description = model.Description });
@@ -30,9 +30,14 @@ namespace STAR.Web.Controllers
         }
 
 
-        public ActionResult Skills()
+        public ActionResult Details()
         {
             return View();
+        }
+
+        public ActionResult Index()
+        {
+            return View(context.Skills.ToList());
         }
     }
 }
