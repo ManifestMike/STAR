@@ -1,60 +1,28 @@
-﻿@using STAR.Web.Models;
+﻿@model SkillModel
 
-@model SkillModel
+<h2>Skills</h2>
 
+@using (Html.BeginForm())
 
-@{
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false);
 
-
-    ViewBag.Title = "Skills";
-}
-
-
-<head>
-    @*<style>
-        body {
-            background-color:fuchsia;
-            color: hotpink;
-        }
-    </style>*@
-</head>
-
-<center>
-<body>
-<br/>
-<div>
-
-    <h2>Skills</h2>
-
-    @using (Html.BeginForm())
-
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(false);
-
-        <div id="form">
-        
+    <div class="form-horizontal">
             
-            <div id="skillName">
-                @Html.LabelFor(m => m.SkillName)
-                @Html.TextBoxFor(m => m.SkillName)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.SkillName)
+            @Html.TextBoxFor(m => m.SkillName, new { @class = "form-control" })
+        </div>
             
           
-            <div id="skillDescription">
+        <div class="form-group">
 
-                @Html.LabelFor(m => m.Description)
-                @Html.TextAreaFor(m => m.Description)
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                 
-            </div>
-            <input type="submit" />
         </div>
-    }
 
-    </body>
-</div>
-    </center>
-  
-
-  
-
+        <input type="submit" class="btn btn-primary" />
+    </div>
+}
