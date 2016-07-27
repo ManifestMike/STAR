@@ -16,8 +16,11 @@
     });
     </script>
 }
-First name: <input type="text" name="fname"><br>
-  Last name: <input type="text" name="lname"><br>
+<label>First name: <input type="text" name="fname"></label>
+<br>
+  <label>Last name: <input type="text" name="lname"></label>
+<br>
+<br>
 
 <label>Contractor Search: </label>
 @using (Html.BeginForm()) {
@@ -32,4 +35,7 @@ First name: <input type="text" name="fname"><br>
     @Html.Partial("ContractorListPartial", Model)
 }
 
-<input type="submit" value="Submit">
+<div id="buttons">
+    <button id="savebutton" onclick="window.location="skills.cshtml">SAVE</button>
+    <button id="cancelbutton">CANCEL</button>
+</div>
