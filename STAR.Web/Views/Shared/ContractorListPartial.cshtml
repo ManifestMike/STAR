@@ -8,25 +8,23 @@
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skills)
+        </th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var contractor in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(m => contractor.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(m => contractor.LastName)
             </td>
             <td>
-                @for (int i = 0; i < modelItem.Skills.Count; i++) {
-                    @Html.DisplayFor(modelItem => item.Skills.Name)
+                @foreach (var s in contractor.Skills) {
+                    <span>@s.Name</span>
                 }
-            </td>
-            <td>
-                @Html.ActionLink("Save", "Save", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID })
             </td>
         </tr>
     }
