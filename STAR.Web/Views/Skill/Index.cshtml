@@ -16,7 +16,7 @@
     <ul>
         @foreach (Skill s in Model.OrderBy(s => s.Name))
         {
-            <li><b>@s.Name</b> - @s.Description</li>
+            <li><b>@s.Name</b> @if (s.Description != null) {<span>-</span> } @s.Description</li>
             }
         </ul>
         }
