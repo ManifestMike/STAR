@@ -26,13 +26,17 @@ namespace STAR.Web.Controllers
 
             context.SaveChanges();
 
-            return View(model);
+            return RedirectToAction("Index");
         }
 
-
-        public ActionResult Details()
+        [HttpGet]
+        public ActionResult Details(int? Id)
         {
-            return View();
+            if (!Id.HasValue)
+            {
+                return View();
+            }
+            return View(); //todo pass in skill
         }
 
         public ActionResult Index()
