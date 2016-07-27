@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Skill>
+
+<h2>Skills</h2>
+
+<a href="@Url.Action("Details")" class="btn btn-primary">
+    Create New
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+@if ((Model ?? new Skill[] { }).Any())
+{
+    <p>There are @Model.Count() Skills</p>
+    <ul>
+        @foreach (Skill s in Model.OrderBy(s => s.Name))
+        {
+            <li><b>@s.Name</b> - @s.Description</li>
+            }
+        </ul>
+        }
+else
+{
+    <p>There are no skills!  @Html.ActionLink("Add one!", "Details")</p>
+}
