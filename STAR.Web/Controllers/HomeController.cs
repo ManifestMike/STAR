@@ -21,9 +21,9 @@ namespace STAR.Web.Controllers {
         }
         [HttpPost]
         public ActionResult Index(string searchTerm) {
-            //query
+            
             ViewBag.SearchTerm = searchTerm;
-
+            //given a skill return all contractors with that skill
             using (context) {
                 context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                 var contractors = context.Contractors
@@ -33,8 +33,8 @@ namespace STAR.Web.Controllers {
                 return View(contractors);
             }
         }
-        //@Pre: term 
-        //@Post:
+        //@Pre: term is retrieved from autocomplete source 
+        //@Post: Returns json of names of the skills that start with that term
         public JsonResult GetSkills(string term) {
             List<string> skills;
              
