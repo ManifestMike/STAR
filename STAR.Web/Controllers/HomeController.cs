@@ -22,6 +22,8 @@ namespace STAR.Web.Controllers {
         [HttpPost]
         public ActionResult Index(string searchTerm) {
             //query
+            ViewBag.SearchTerm = searchTerm;
+
             using (context) {
                 context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                 var contractors = context.Contractors
