@@ -1,0 +1,60 @@
+﻿@using STAR.Web.Models;
+
+@model SkillModel
+
+
+@{
+
+
+    ViewBag.Title = "Skills";
+}
+
+
+<head>
+    @*<style>
+        body {
+            background-color:fuchsia;
+            color: hotpink;
+        }
+    </style>*@
+</head>
+
+<center>
+<body>
+<br/>
+<div>
+
+    <h2>Skills</h2>
+
+    @using (Html.BeginForm())
+
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false);
+
+        <div id="form">
+        
+            
+            <div id="skillName">
+                @Html.LabelFor(m => m.SkillName)
+                @Html.TextBoxFor(m => m.SkillName)
+            </div>
+            
+          
+            <div id="skillDescription">
+
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description)
+                
+            </div>
+            <input type="submit" />
+        </div>
+    }
+
+    </body>
+</div>
+    </center>
+  
+
+  
+
