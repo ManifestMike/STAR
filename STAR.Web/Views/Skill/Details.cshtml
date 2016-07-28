@@ -20,7 +20,7 @@
         <div class="form-group">
 
             @Html.LabelFor(m => m.Description)
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            @Html.TextAreaFor(m => m.Description, new { maxlength = 256, @class = "form-control" })
                 
         </div>
 
