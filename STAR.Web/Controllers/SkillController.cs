@@ -21,6 +21,10 @@ namespace STAR.Web.Controllers
         [HttpPost]
         public ActionResult Details(SkillModel model)
         {
+            if (context.Skills.Any(x => x.Name == model.SkillName))
+            {
+                return View("SkillExists");
+            }
             context.Skills.Add(new Domain.Skill
             { Name = model.SkillName, Description = model.Description });
 
@@ -42,6 +46,11 @@ namespace STAR.Web.Controllers
         public ActionResult Index()
         {
             return GetIndexView();
+        }
+
+        public ActionResult SkillExists()
+        {
+            return View();
         }
 
         private ActionResult GetIndexView()
