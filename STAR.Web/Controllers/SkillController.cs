@@ -21,14 +21,39 @@ namespace STAR.Web.Controllers
         [HttpPost]
         public ActionResult Details(SkillModel model)
         {
-            context.Skills.Add(new Domain.Skill
-            { Name = model.SkillName, Description = model.Description });
+            if (ModelState.IsValid)
+            {
+                if (context.Skills.Any(x => x.Name == model.SkillName))
+                {
+                    ModelState.AddModelError("Name", $"There is already a skill with the name {model.SkillName}.");
+                    return View(model);
+                }
 
-            context.SaveChanges();
+                context.Skills.Add(new Domain.Skill
+                { Name = model.SkillName, Description = model.Description });
+
+                context.SaveChanges();
 
 
-            return GetIndexView();
+
+
+
+
+
+                return GetIndexView();
+            }
+
+            return View(model);
         }
+
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public ActionResult Details(int? Id)
@@ -50,5 +75,7 @@ namespace STAR.Web.Controllers
             return View("Index", context.Skills.ToList());
 
         }
+
+     
     }
 }

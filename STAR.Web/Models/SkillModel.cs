@@ -9,6 +9,7 @@ namespace STAR.Web.Models
 {
     public class SkillModel
     {
+        [Required]
         [DisplayName("Skill")]
         public string SkillName { get; set; }
         [StringLength(256)]
