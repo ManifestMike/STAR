@@ -62,7 +62,7 @@ namespace STAR.Web.Controllers
 
             if (context.Contractors.Any(x => x.FirstName == contractor.FirstName && x.LastName==contractor.LastName))
             {
-                return View("ContractorExists");
+                return View();
             }
             context.Contractors.Add(new Domain.Contractor
 
