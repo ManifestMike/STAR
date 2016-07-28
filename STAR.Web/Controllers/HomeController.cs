@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using STAR.Data;
+using Extensions;
 
 namespace STAR.Web.Controllers {
     public class HomeController : Controller {
@@ -30,16 +31,21 @@ namespace STAR.Web.Controllers {
                               .Include(c => c.Skills)
                               .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList();
 
+                foreach (var person in contractors) {
+                    var skillList = person.Skills.ToList();
+                    int index = skillList.FindIndex(x => x.Name == searchTerm);
+                    skillList.MoveToFront(index);
+                    person.Skills = skillList; 
+                }
+
                 return View(contractors);
             }
         }
         //@Pre: term is retrieved from autocomplete source 
         //@Post: Returns json of names of the skills that start with that term
-        public JsonResult GetSkills(string term) {
-            List<string> skills;
-             
-            skills = context.Skills.Where(x => x.Name.StartsWith(term))
-                .Select(y => y.Name).ToList();
+        public JsonResult GetSkills() {
+           
+            var skills = context.Skills.Select(y => y.Name).ToList();
 
             return Json(skills, JsonRequestBehavior.AllowGet);
         }

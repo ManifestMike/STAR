@@ -250,6 +250,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Extensions.csproj">
+      <Project>{3798b666-cbbc-42b5-a69a-184e0e0820b1}</Project>
+      <Name>Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\STAR.Data\STAR.Data.csproj">
       <Project>{48212b22-ae1c-4c7e-81b4-3c5de23b0744}</Project>
       <Name>STAR.Data</Name>

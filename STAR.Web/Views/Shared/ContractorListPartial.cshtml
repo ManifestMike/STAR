@@ -23,6 +23,9 @@
             </td>
             <td>
                 @{var totalSkills = contractor.Skills.Count;}
+                @if(totalSkills > 5) {
+                    totalSkills = 5;
+                }
                 @for (int i = 0; i < totalSkills; i++) {
                     var contractorSkillName = contractor.Skills.ElementAt(i).Name;
                     var lastIndex = contractor.Skills.Count - 1;
