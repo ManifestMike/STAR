@@ -22,8 +22,8 @@
 <br>
 <br>
 
-<label>Skills Search: </label>
 
+<label>Skills Search: </label>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
@@ -49,12 +49,6 @@
     foreach (var contractor in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(m => contractor.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(m => contractor.LastName)
-            </td>
             <td>
                 @for (int i = 0; i < contractor.Skills.Count; i++)
                 {
@@ -92,4 +86,5 @@
 <div id="buttons">
     <button id="savebutton" onclick="window.location"skills.cshtml">SAVE</button>
     <button id="cancelbutton">CANCEL</button>
+    <input type="button" value="CANCEL" onclick="window.location.href='./'" />
 </div>
