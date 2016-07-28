@@ -33,9 +33,6 @@
 
         <div class="form-group">
 
-            @{ Html.ValidateFor(x => x.Description);
-            }
-
             @Html.LabelFor(m => m.Description)
             @Html.TextAreaFor(m => m.Description, new { maxlength = 256,  @class = "form-control" })
             <p>Max Description Length is 256</p>
