@@ -26,7 +26,8 @@ namespace STAR.Web.Controllers
 
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+
+            return GetIndexView();
         }
 
         [HttpGet]
@@ -41,7 +42,13 @@ namespace STAR.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(context.Skills.ToList());
+            return GetIndexView();
+        }
+
+        private ActionResult GetIndexView()
+        {
+            return View("Index", context.Skills.ToList());
+
         }
     }
 }
