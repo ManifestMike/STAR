@@ -1,5 +1,44 @@
 ﻿@model IEnumerable<Contractor>
 
+
+@foreach(var contractor in Model) {
+    <div class="modal fade" id="con-@contractor.ID" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">@Html.DisplayFor(c => contractor.FirstName)'s Details 
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5 col-sm-offset-1">
+                            <p><strong>@Html.DisplayNameFor(model => model.FirstName)</strong>: @Html.DisplayFor(m => contractor.FirstName)</p>
+                            <p><strong>@Html.DisplayNameFor(model => model.LastName)</strong>: @Html.DisplayFor(m => contractor.LastName)</p>
+                            <p>
+                                <strong>@Html.DisplayNameFor(model => model.Skills)</strong>@Html.DisplayNameFor(model => model.Skills): @foreach(var s in contractor.Skills) {
+                                    <ul>
+                                        <li>@s.Name</li><!-- order by alpha -->
+                                    </ul>
+                                    }
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>Email</strong>:</p>
+                            <p><strong>Primary Phone</strong>:</p>
+                            <p><strong>Cell Phone</strong>:</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Email</button>
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-send"></span> Hire Request</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+}
+
 <table class="table">
     <tr>
         <th>
@@ -11,22 +50,24 @@
         <th>
             @Html.DisplayNameFor(model => model.Skills)
         </th>
+        <th></th>
     </tr>
 
     @foreach (var contractor in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(m => contractor.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(m => contractor.LastName)
-            </td>
-            <td>
-                @foreach (var s in contractor.Skills) {
+            <td>@Html.DisplayFor(m => contractor.FirstName)</td>
+            <td>@Html.DisplayFor(m => contractor.LastName)</td>
+            <td>@foreach (var s in contractor.Skills) {
                     <span>@s.Name</span>
                 }
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#con-@contractor.ID">
+                    Show
+                </button>
             </td>
         </tr>
     }
 
 </table>
+  

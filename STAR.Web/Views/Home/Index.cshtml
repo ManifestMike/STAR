@@ -13,11 +13,11 @@
 </script>
 }
 
-<label>Skills: </label>
+<label>Contractors by Skill:</label>
 @using (Html.BeginForm()) {
-    @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+    @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class="form-control", placeholder="Search"})
 }
-
+<br />
 @if(Model != null){
     @Html.Partial("ContractorListPartial", Model)
 }

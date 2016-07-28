@@ -26,7 +26,8 @@ namespace STAR.Web.Controllers {
                 context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                 var contractors = context.Contractors
                               .Include(c => c.Skills)
-                              .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList();
+                              .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList()
+                              .OrderBy(c => c.LastName);
 
                 return View(contractors);
             }

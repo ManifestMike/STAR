@@ -19,3 +19,11 @@ textarea {
 a.btn > span.glyphicon {
     margin-left: 8px;
 }
+
+.yellow{
+    color:#ffd800;
+}
+
+.margin-left{
+    margin-left: 10px;
+}
