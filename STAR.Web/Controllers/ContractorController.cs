@@ -6,11 +6,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace STAR.Web.Controllers {
-    public class ContractorController : Controller {
+namespace STAR.Web.Controllers
+{
+    public class ContractorController : Controller
+    {
         private StarContext context;
 
-        public ContractorController(DbContext context) {
+        public ContractorController(DbContext context)
+        {
             this.context = context as StarContext;
         }
 
@@ -35,10 +38,11 @@ namespace STAR.Web.Controllers {
                     return PartialView("ContractorListPartial", contractors);
                 }
             }
-            return View();
+            return View(context.Contractors.ToList());
         }
 
-        public ActionResult Details(int? id) {
+        public ActionResult Details(int? id)
+        {
             if (!id.HasValue)
             {
                 return View();
@@ -52,7 +56,22 @@ namespace STAR.Web.Controllers {
         [HttpPost]
         public ActionResult Details(Contractor contractor)
         {
-            return View();
+            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var contractors = context.Contractors.Include(c => c.Skills).Where(c => c.FirstName == contractor.FirstName).Where(c => c.LastName == contractor.LastName).FirstOrDefault();
+
+
+            if (context.Contractors.Any(x => x.FirstName == contractor.FirstName && x.LastName==contractor.LastName))
+            {
+                return View("ContractorExists");
+            }
+            context.Contractors.Add(new Domain.Contractor
+
+            { FirstName = contractor.FirstName, LastName = contractor.LastName });
+
+            context.SaveChanges();
+
+
+            return View(contractors);
         }
     }
 }
