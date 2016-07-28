@@ -1,4 +1,4 @@
-﻿@model IEnumerable<STAR.Domain.Contractor>
+﻿@model Contractor
 @{
     ViewBag.Title = "Details";
 }
@@ -16,14 +16,30 @@
     });
     </script>
 }
-<label>First name: <input type="text" name="fname"></label>
-<br>
-  <label>Last name: <input type="text" name="lname"></label>
-<br>
-<br>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.FirstName)
+
+    @Html.LabelFor(m => m.LastName)
+    @Html.TextBoxFor(m => m.LastName)
+
+    if (Model != null)
+    {
+        foreach (var s in Model.Skills)
+        {
+            <li>@s.Name</li>
+        }
+    }
+
+    <input type="submit" value="Save" />
+}
 
 
-<label>Skills Search: </label>
+
+@*<label>Skills Search: </label>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
@@ -34,56 +50,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Skills)
         </th>
     </tr>
 
 @if (Model != null)
 {
-    foreach (var contractor in Model)
+    foreach (var skills in Model)
     {
         <tr>
             <td>
-                @for (int i = 0; i < contractor.Skills.Count; i++)
-                {
-                    if (ViewBag.SearchTerm == contractor.Skills.ElementAt(i).Name)
-                    {
-                        if (i == contractor.Skills.Count - 1)
-                        {
-                            <span><strong>@contractor.Skills.ElementAt(i).Name</strong></span>
-                        }
-                        else
-                        {
-                            <span><strong>@contractor.Skills.ElementAt(i).Name</strong>,</span>
-                        }
-                    }
-                    else
-                    {
-                        if (i == contractor.Skills.Count - 1)
-                        {
-                            <span>@contractor.Skills.ElementAt(i).Name</span>
-                        }
-                        else
-                        {
-                            <span>@contractor.Skills.ElementAt(i).Name,</span>
-                        }
-                    }
-                }
+                @Html.DisplayNameFor(model => model.Skills)
             </td>
         </tr>
     }
 }
 
-</table>
+</table>*@
 
 
 <div id="buttons">
-    <button id="savebutton" onclick="window.location"skills.cshtml">SAVE</button>
     <input type="button" value="CANCEL" onclick="window.location.href='./'" />
 </div>

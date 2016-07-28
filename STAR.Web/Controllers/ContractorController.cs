@@ -1,6 +1,6 @@
 ﻿using Extensions;
 using STAR.Data;
-using System;
+using STAR.Domain;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -38,25 +38,21 @@ namespace STAR.Web.Controllers {
             return View();
         }
 
-        public ActionResult Details() {
+        public ActionResult Details(int? id) {
+            if (!id.HasValue)
+            {
+                return View();
+            }
+
             return View();
+            //go to the db and find the contractor with id = id.Value
+            //return View(theFoundContractor);
         }
 
         [HttpPost]
-        public ActionResult Details(string searchTerm)
+        public ActionResult Details(Contractor contractor)
         {
-            //query
-            ViewBag.SearchTerm = searchTerm;
-
-            using (context)
-            {
-                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-                var contractors = context.Contractors
-                              .Include(c => c.Skills)
-                              .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList();
-
-                return View(contractors);
-            }
+            return View();
         }
     }
 }
