@@ -22,7 +22,8 @@
 <br>
 <br>
 
-<label>Contractor Search: </label>
+<label>Skills Search: </label>
+
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
@@ -32,7 +33,7 @@
 
 @if (Model != null)
 {
-    @Html.Partial("ContractorListPartial", Model)
+    @Html.Partial("ContractorSkillListPartial", Model)
 }
 
 <div id="buttons">
