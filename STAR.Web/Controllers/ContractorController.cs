@@ -41,5 +41,22 @@ namespace STAR.Web.Controllers {
         public ActionResult Details() {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Details(string searchTerm)
+        {
+            //query
+            ViewBag.SearchTerm = searchTerm;
+
+            using (context)
+            {
+                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+                var contractors = context.Contractors
+                              .Include(c => c.Skills)
+                              .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList();
+
+                return View(contractors);
+            }
+        }
     }
 }
