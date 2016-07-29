@@ -41,6 +41,7 @@ namespace STAR.Web.Controllers
             return View(context.Contractors.ToList());
         }
 
+        //autopopulate Details
         public ActionResult Details(int? id)
         {
             if (!id.HasValue)
@@ -53,11 +54,11 @@ namespace STAR.Web.Controllers
             return View(contractor);
         }
 
+        //Update/Save Details
         [HttpPost]
         public ActionResult Details(Contractor contractor)
         {
-            /*
-            if (Nocontractor)
+            if (contractor.ID==0)
             {
                 context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                 var contractors = context.Contractors.Include(c => c.Skills).Where(c => c.FirstName == contractor.FirstName).Where(c => c.LastName == contractor.LastName).FirstOrDefault();
@@ -67,21 +68,27 @@ namespace STAR.Web.Controllers
                     return View();
                 }
                 context.Contractors.Add(new Domain.Contractor
-
                 { FirstName = contractor.FirstName, LastName = contractor.LastName });
-            }*/
-            Contractor updatedContractor = context.Contractors.Where(c => c.ID == contractor.ID).FirstOrDefault();
-            updatedContractor.FirstName = contractor.FirstName;
-            updatedContractor.LastName = contractor.LastName;
-            //updatedContractor.Skills =
+
+                context.SaveChanges();
+
+                return View();
+            }
+            else
+            {
+                Contractor updatedContractor = context.Contractors.Where(c => c.ID == contractor.ID).FirstOrDefault();
+                updatedContractor.FirstName = contractor.FirstName;
+                updatedContractor.LastName = contractor.LastName;
+                //updatedContractor.Skills =
 
 
-            context.SaveChanges();
+                context.SaveChanges();
 
+                return View(updatedContractor);
+            }
 
-            return View(updatedContractor);
         }
-        
+
 
         [HttpGet]
         public ActionResult Delete(int? id)
