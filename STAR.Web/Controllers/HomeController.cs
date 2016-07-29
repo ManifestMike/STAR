@@ -19,29 +19,5 @@ namespace STAR.Web.Controllers {
         public ActionResult Index() {
             return View();
         }
-        [HttpPost]
-        public ActionResult Index(string searchTerm) {
-            //query
-            ViewBag.SearchTerm = searchTerm;
-
-            using (context) {
-                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-                var contractors = context.Contractors
-                              .Include(c => c.Skills)
-                              .Where(c => c.Skills.Any(s => s.Name == searchTerm)).ToList();
-
-                return View(contractors);
-            }
-        }
-        //@Pre: term 
-        //@Post:
-        public JsonResult GetSkills(string term) {
-            List<string> skills;
-             
-            skills = context.Skills.Where(x => x.Name.StartsWith(term))
-                .Select(y => y.Name).ToList();
-
-            return Json(skills, JsonRequestBehavior.AllowGet);
-        }
     }
 }
