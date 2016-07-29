@@ -26,10 +26,20 @@
     @Html.LabelFor(m => m.LastName)
     @Html.TextBoxFor(m => m.LastName)
 
-    if (Model != null)
+    @*
+        <label>Skills Search: </label>
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+
+        }*@
+
+
+if (Model != null)
+{
+    foreach (var s in Model.Skills)
     {
-        foreach (var s in Model.Skills)
-        {
             <li>@s.Name</li>
         }
     }
@@ -39,34 +49,6 @@
 
 
 
-@*<label>Skills Search: </label>
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-
-    @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
-
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Skills)
-        </th>
-    </tr>
-
-@if (Model != null)
-{
-    foreach (var skills in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Skills)
-            </td>
-        </tr>
-    }
-}
-
-</table>*@
 
 
 <div id="buttons">

@@ -24,15 +24,13 @@ namespace STAR.Web.Controllers
 
         public ActionResult Details(int? id)
         {
-            /*Contractor contractor;
-            contractor.ID = 0;*/
             if (!id.HasValue)
             {
                 return View();
             }
             context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            var contractor = context.Contractors.Where(c => c.ID == id).FirstOrDefault();
-
+            var contractor = context.Contractors.Include(c => c.Skills).Where(c => c.ID == id).FirstOrDefault();
+            
             return View(contractor);
         }
 
@@ -56,7 +54,7 @@ namespace STAR.Web.Controllers
             Contractor updatedContractor = context.Contractors.Where(c => c.ID == contractor.ID).FirstOrDefault();
             updatedContractor.FirstName = contractor.FirstName;
             updatedContractor.LastName = contractor.LastName;
-            //updatedContractor.Skills.....
+            //updatedContractor.Skills =
 
 
             context.SaveChanges();
