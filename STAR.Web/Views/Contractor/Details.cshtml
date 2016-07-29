@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Details";
 }
-
+  
 <h2>Details</h2>
 
 @section scripts {
@@ -16,35 +16,35 @@
     });
     </script>
 }
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
+        @Html.LabelFor(m => m.FirstName)
+        <br />
+        @Html.TextBoxFor(m => m.FirstName)
+        <br /><br />
+        @Html.LabelFor(m => m.LastName)
+        <br />
+        @Html.TextBoxFor(m => m.LastName)
 
-    @Html.LabelFor(m => m.FirstName)
-    @Html.TextBoxFor(m => m.FirstName)
+        @*
+            <label>Skills Search: </label>
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
 
-    @Html.LabelFor(m => m.LastName)
-    @Html.TextBoxFor(m => m.LastName)
+                @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
 
-    @*
-        <label>Skills Search: </label>
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-
-            @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
-
-        }*@
-
-
-if (Model != null)
-{
-    foreach (var s in Model.Skills)
-    {
+            }*@
+        <br /><br />
+        @Html.LabelFor(m => m.Skills)
+        if (Model != null) {
+            foreach (var s in Model.Skills) {
             <li>@s.Name</li>
         }
     }
-
-    <input type="submit" value="Save" />
+    <br /><br />
+    <input class="btn btn-default" type="submit" value="Save" />
+    <br />
 }
 
 
@@ -52,5 +52,13 @@ if (Model != null)
 
 
 <div id="buttons">
-    <input type="button" value="CANCEL" onclick="window.location.href='/Contractor'" />
+    <input class="btn btn-default" type="button" value="CANCEL" onclick="window.location.href='/Contractor'" />
 </div>
+<style>
+    input {
+        width: 100%;
+    }
+    li {
+        list-style-type: none;
+    }
+</style>
