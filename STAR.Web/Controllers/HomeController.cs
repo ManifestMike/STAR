@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
+using STAR.Data;
 
 namespace STAR.Web.Controllers {
     public class HomeController : Controller {
