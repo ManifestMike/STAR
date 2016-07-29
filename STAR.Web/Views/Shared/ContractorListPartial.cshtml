@@ -22,6 +22,7 @@
                 @Html.DisplayFor(m => contractor.LastName)
             </td>
             <td>
+
                 @{var totalSkills = contractor.Skills.Count;}
                 @if(totalSkills > 5) {
                     totalSkills = 5;
@@ -38,16 +39,20 @@
                                 }
                             }
                             else {
-                                if (i == lastIndex) {
-                                    <span> @contractorSkillName</span>
-                                }
-                                else {
-                                    <span> @contractorSkillName,</span>
-                                }
+                                <span><strong> @contractorSkillName</strong>,</span>
                             }
                         }
+                        else {
+                            if (i == lastIndex) {
+                                <span> @contractorSkillName</span>
+                            }
+                            else {
+                                <span> @contractorSkillName,</span>
+                            }
+                        }
+                    }
+                }
             </td>
         </tr>
     }
-
 </table>

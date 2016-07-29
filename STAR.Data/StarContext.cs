@@ -12,6 +12,7 @@ namespace STAR.Data {
 
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 

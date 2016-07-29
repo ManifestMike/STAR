@@ -3,6 +3,28 @@
 ### Code
 The code is in a [git](https://git-scm.com/) repository.  The repository url is https://github.com/ManifestMike/STAR.git
 
+#### Working from a fork
+If you choose to work from a fork, you will need to do two things:
+1. Set the main repository as an upstream remote
+	```
+	git remote add upstream https://github.com/ManifestMike/STAR.git
+	```
+1. Periodically keep your fork up to date
+	```
+	git fetch upstream
+	git checkout master
+	git merge upstream/master
+	```
+
+#### Pull requests
+_**All your work should be done in a branch other than master**_
+
+Push your branch to the repository (either the main repository or your branch, depending how you set it up), and then create a pull request to the master branch.
+
+To push your branch: `git push -u origin <branch name>`
+
+To create a pull request, follow the [directions from GitHub](https://help.github.com/articles/creating-a-pull-request/).  Choose the `master` branch as the upstream branch to merge into.
+
 ### IDE Setup
 - Visual Studio 2015 [Community Edition](https://www.visualstudio.com/) (or Professional, if you have it)
 
@@ -28,7 +50,6 @@ You should also get in the habit of running `update-database` every time you get
 
 ### Commit
 **DO NOT COMMIT BROKEN CODE.**
-
 
 ## Database Schema Changes
 ### Making Changes
