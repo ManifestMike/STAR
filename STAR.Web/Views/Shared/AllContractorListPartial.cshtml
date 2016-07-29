@@ -1,0 +1,33 @@
+﻿@model IEnumerable<STAR.Domain.Contractor>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skills)
+        </th>
+    </tr>
+
+    @foreach (var contractor in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => contractor.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => contractor.LastName)
+            </td>
+            <td>
+                @Html.ActionLink("Update", "Update", new { id = contractor.ID }) |
+                
+            </td>
+        </tr>
+    }
+
+</table>
