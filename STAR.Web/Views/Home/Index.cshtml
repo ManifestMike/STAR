@@ -3,10 +3,9 @@
 
 @section scripts {
 <script type="text/javascript">
-    //Jquery auto complete widget 
     $(function (){
         $("#txtSearch").autocomplete({
-            source: '@Url.Action("GetSkills")'
+            source: '@Url.Action("Index", "Skill")'
         });
     });
 </script>
