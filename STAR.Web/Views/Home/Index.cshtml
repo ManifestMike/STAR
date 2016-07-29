@@ -1,5 +1,4 @@
-﻿@model IEnumerable<STAR.Domain.Contractor>
-<h2>Dashboard</h2>
+﻿<h2>Dashboard</h2>
 
 @section scripts {
 <script type="text/javascript">
@@ -7,14 +6,20 @@
         $("#txtSearch").autocomplete({
             source: '@Url.Action("Index", "Skill")'
         });
+
+        $("#search").on("click", function () {
+            $.get('@Url.Action("Index", "Contractor")', { searchTerm: $("#txtSearch").val() })
+                .done(function (contractors) {
+                    $("#results").html(contractors);
+                });
+        });
     });
 </script>
 }
 
-@using (Html.BeginForm()) {
-    <label>Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
-}
+<div>
+    <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class="form-control" })
+    <button id="search">Search</button>
+</div>
 
-@if(Model != null){
-    @Html.Partial("ContractorListPartial", Model)
-}
+<div id="results"></div>

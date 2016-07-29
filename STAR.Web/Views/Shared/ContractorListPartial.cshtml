@@ -22,29 +22,30 @@
                 @Html.DisplayFor(m => contractor.LastName)
             </td>
             <td>
-                @{var totalSkills = contractor.Skills.Count;}
-                @for (int i = 0; i < totalSkills; i++) {
-                    var contractorSkillName = contractor.Skills.ElementAt(i).Name;
-                    var lastIndex = contractor.Skills.Count - 1;
-                    if (ViewBag.SearchTerm == contractorSkillName && ViewBag.SearchTerm != null) {
-                        if (i == lastIndex) {
-                                    <span><strong> @contractorSkillName</strong ></span>
-                                }
-                                else {
-                                    <span><strong> @contractorSkillName</strong>,</span>
-                                }
+                @{
+                    var totalSkills = contractor.Skills.Count;
+                    for (int i = 0; i < totalSkills; i++) {
+                        var contractorSkillName = contractor.Skills.ElementAt(i).Name;
+                        var lastIndex = contractor.Skills.Count - 1;
+                        if (ViewBag.SearchTerm == contractorSkillName && ViewBag.SearchTerm != null) {
+                            if (i == lastIndex) {
+                                <span><strong> @contractorSkillName</strong ></span>
                             }
                             else {
-                                if (i == lastIndex) {
-                                    <span> @contractorSkillName</span>
-                                }
-                                else {
-                                    <span> @contractorSkillName,</span>
-                                }
+                                <span><strong> @contractorSkillName</strong>,</span>
                             }
                         }
+                        else {
+                            if (i == lastIndex) {
+                                <span> @contractorSkillName</span>
+                            }
+                            else {
+                                <span> @contractorSkillName,</span>
+                            }
+                        }
+                    }
+                }
             </td>
         </tr>
     }
-
 </table>
