@@ -10,10 +10,9 @@ namespace STAR.Data {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<StarContext, Migrations.Configuration>("StarContext"));
         }
 
-        public virtual DbSet<Skill> Skills { get; set; }
-
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
