@@ -43,12 +43,16 @@ namespace STAR.Web.Controllers
 
         public ActionResult Details(int? id)
         {
+            /*Contractor contractor;
+            contractor.ID = 0;*/
             if (!id.HasValue)
             {
                 return View();
             }
+            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            var contractor = context.Contractors.Where(c => c.ID == id).FirstOrDefault();
 
-            return View();
+            return View(contractor);
             //go to the db and find the contractor with id = id.Value
             //return View(theFoundContractor);
         }
