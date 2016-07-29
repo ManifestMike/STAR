@@ -37,15 +37,18 @@ namespace STAR.Web.Controllers {
             return View(); //todo pass in skill
         }
 
-        public ActionResult Index(string term) {
-            if (!string.IsNullOrEmpty(term)) {
-                var skills = context.Skills.Where(x => x.Name.StartsWith(term))
-                    .Select(y => y.Name).ToList();
+        public ActionResult Index() {
+            return GetIndexView();
+        }
 
-                return Json(skills, JsonRequestBehavior.AllowGet);
+        public ActionResult Search(string term) {
+            var skills = context.Skills.Select(y => new { name = y.Name, id = y.SkillId });
+
+            if (!string.IsNullOrEmpty(term)) {
+                skills = skills.Where(x => x.name.StartsWith(term));
             }
 
-            return GetIndexView();
+            return Json(skills, JsonRequestBehavior.AllowGet);
         }
 
         private ActionResult GetIndexView() {

@@ -2,31 +2,33 @@
 
 @section scripts {
 <script type="text/javascript">
-    $(function (){
-        $("#txtSearch").autocomplete({
-            source: '@Url.Action("Index", "Skill")'
-        });
-
-        $("#search").on("click", function () {
-            $.get('@Url.Action("Index", "Contractor")', { searchTerm: $("#txtSearch").val() })
-                .done(function (contractors) {
-                    $("#results").html(contractors);
-                });
-        });
-    });*@
-
     $(function () {
-
         function split(val) {
             return val.split(/,\s*/);
         }
         function extractLast(term) {
             return split(term).pop();
         }
-        $.get('@Url.Action("GetSkills")')
+        //Get values from database to help autocomplete values
+        $.get('@Url.Action("Search", "Skill")')
             .done(function (skills) {
+                $("#search").on("click", function () {
+                    var selected = $("#txtSearch").val().split(',').filter(function(s) { return s.trim().length > 0});
+                    
+                    var skillIds = selected.
+                        map(function (s) { return skills.find(function (sk) { return sk.name.toLowerCase() === s.trim().toLowerCase(); }).id; });
 
-                  $("#txtSearch")
+                    $.get({
+                            url: '@Url.Action("Index", "Contractor")',
+                            data: { selectedSkillIds: skillIds },
+                            traditional: true
+                    }).
+                        done(function (contractors) {
+                            $("#results").html(contractors);
+                        });
+                });
+       //Autocomplete functionality
+      $("#txtSearch")
       // don't navigate away from the field on tab when selecting an item
       .on("keydown", function (event) {
           if (event.keyCode === $.ui.keyCode.TAB &&
@@ -37,9 +39,15 @@
       .autocomplete({
           minLength: 0,
           source: function (request, response) {
-              // delegate back to autocomplete, but extract the last term
-              response($.ui.autocomplete.filter(
-                skills, extractLast(request.term)));
+              var term = extractLast(request.term);
+              var re = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
+              var filtered = skills.
+                  filter(function (s) {
+                      return re.test(s.name);
+                  }).
+                  map(function (s) { return { label: s.name, value: s.id } });
+
+              response(filtered);
           },
           focus: function () {
               // prevent value inserted on focus
@@ -50,15 +58,15 @@
               // remove the current input
               terms.pop();
               // add the selected item
-              terms.push(ui.item.value);
+              terms.push(ui.item.label);
               // add placeholder to get the comma-and-space at the end
               terms.push("");
               this.value = terms.join(", ");
               return false;
           }
       });
-              });
-            });
+   });
+});
     
 </script>
 }
@@ -66,7 +74,6 @@
 <div>
     <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class="form-control" })
     <button id="search">Search</button>
-    @Html.Hidden("skillId", null);
 </div>
 
 <div id="results"></div>

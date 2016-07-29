@@ -8,10 +8,10 @@ namespace Extensions
 {
     public static class ListExtension
     {
-       public static void MoveToFront<T>(this List<T> list, int index) {
-            T item = list[index];
-            list.RemoveAt(index);
-            list.Insert(0, item);
+       public static void MoveElementToIndex<T>(this List<T> list, int element, int index) {
+            T item = list[element];
+            list.RemoveAt(element);
+            list.Insert(index, item);
         }
     }
 }
