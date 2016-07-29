@@ -83,5 +83,30 @@ namespace STAR.Web.Controllers
 
             return View(updatedContractor);
         }
+        
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return View();
+            }
+            Contractor contractor = context.Contractors.Find(id);
+            if (contractor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(contractor);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Contractor contractor = context.Contractors.Find(id);
+            context.Contractors.Remove(contractor);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
