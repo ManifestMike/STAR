@@ -34,29 +34,35 @@ namespace STAR.Web.Controllers
             var contractor = context.Contractors.Where(c => c.ID == id).FirstOrDefault();
 
             return View(contractor);
-            //go to the db and find the contractor with id = id.Value
-            //return View(theFoundContractor);
         }
 
         [HttpPost]
         public ActionResult Details(Contractor contractor)
         {
-            context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            var contractors = context.Contractors.Include(c => c.Skills).Where(c => c.FirstName == contractor.FirstName).Where(c => c.LastName == contractor.LastName).FirstOrDefault();
-
-
-            if (context.Contractors.Any(x => x.FirstName == contractor.FirstName && x.LastName==contractor.LastName))
+            /*
+            if (Nocontractor)
             {
-                return View();
-            }
-            context.Contractors.Add(new Domain.Contractor
+                context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+                var contractors = context.Contractors.Include(c => c.Skills).Where(c => c.FirstName == contractor.FirstName).Where(c => c.LastName == contractor.LastName).FirstOrDefault();
 
-            { FirstName = contractor.FirstName, LastName = contractor.LastName });
+                if (context.Contractors.Any(x => x.FirstName == contractor.FirstName && x.LastName == contractor.LastName))
+                {
+                    return View();
+                }
+                context.Contractors.Add(new Domain.Contractor
+
+                { FirstName = contractor.FirstName, LastName = contractor.LastName });
+            }*/
+            Contractor updatedContractor = context.Contractors.Where(c => c.ID == contractor.ID).FirstOrDefault();
+            updatedContractor.FirstName = contractor.FirstName;
+            updatedContractor.LastName = contractor.LastName;
+            //updatedContractor.Skills.....
+
 
             context.SaveChanges();
 
 
-            return View(contractors);
+            return View(updatedContractor);
         }
 
         /*
