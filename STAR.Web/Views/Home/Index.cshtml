@@ -71,9 +71,11 @@
 </script>
 }
 
-<div>
-    <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class="form-control" })
-    <button id="search">Search</button>
+<div class="form-inline">
+    <div class="form-group">
+        <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control" })
+    </div>
+    <button id="search" class="btn btn-default">Search</button>
 </div>
 
 <div id="results"></div>
