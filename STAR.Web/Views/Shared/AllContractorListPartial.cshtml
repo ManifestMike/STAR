@@ -1,18 +1,4 @@
-﻿@model IEnumerable<Contractor>
-
-<h2>Contractors</h2>
-
-<a href="@Url.Action("Details")" class="btn btn-primary">
-    Create New
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
-
-@if ((Model ?? new Contractor[] { }).Any()) {
-    <p>There are @Model.Count() contractors</p>
-}
-else {
-    <p>There are no contractors!  @Html.ActionLink("Add one!", "Details")</p>
-}
+﻿@model IEnumerable<STAR.Domain.Contractor>
 
 
 <table class="table">
@@ -38,9 +24,8 @@ else {
                 @Html.DisplayFor(m => contractor.LastName)
             </td>
             <td>
-                @Html.ActionLink("Update", "Details", new { id = contractor.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = contractor.ID })
-
+                @Html.ActionLink("Update", "Update", new { id = contractor.ID }) |
+                
             </td>
         </tr>
     }
