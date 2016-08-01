@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Web", "STAR.Web\STAR.Web.csproj", "{160BB396-631F-4FE2-B7C6-82860559EEE0}"
 EndProject
@@ -15,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Domain", "STAR.Domain\STAR.Domain.csproj", "{2EE42C3B-9EBD-4DA0-AD30-7AEE9A1E0545}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Web.Tests", "STAR.Web.Tests\STAR.Web.Tests.csproj", "{39AC4323-EBDB-4A87-B4D2-84799526A98D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "ClassLibrary1\Extensions.csproj", "{3798B666-CBBC-42B5-A69A-184E0E0820B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AC4323-EBDB-4A87-B4D2-84799526A98D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3798B666-CBBC-42B5-A69A-184E0E0820B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3798B666-CBBC-42B5-A69A-184E0E0820B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3798B666-CBBC-42B5-A69A-184E0E0820B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3798B666-CBBC-42B5-A69A-184E0E0820B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,1 +1,79 @@
 ﻿<h2>Dashboard</h2>
+
+@section scripts {
+<script type="text/javascript">
+    $(function () {
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+        //Get values from database to help autocomplete values
+        $.get('@Url.Action("Search", "Skill")')
+            .done(function (skills) {
+                $("#search").on("click", function () {
+                    var selected = $("#txtSearch").val().split(',').filter(function(s) { return s.trim().length > 0});
+                    
+                    var skillIds = selected.
+                        map(function (s) { return skills.find(function (sk) { return sk.name.toLowerCase() === s.trim().toLowerCase(); }).id; });
+
+                    $.get({
+                            url: '@Url.Action("Index", "Contractor")',
+                            data: { selectedSkillIds: skillIds },
+                            traditional: true
+                    }).
+                        done(function (contractors) {
+                            $("#results").html(contractors);
+                        });
+                });
+       //Autocomplete functionality
+      $("#txtSearch")
+      // don't navigate away from the field on tab when selecting an item
+      .on("keydown", function (event) {
+          if (event.keyCode === $.ui.keyCode.TAB &&
+              $(this).autocomplete("instance").menu.active) {
+              event.preventDefault();
+          }
+      })
+      .autocomplete({
+          minLength: 0,
+          source: function (request, response) {
+              var term = extractLast(request.term);
+              var re = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
+              var filtered = skills.
+                  filter(function (s) {
+                      return re.test(s.name);
+                  }).
+                  map(function (s) { return { label: s.name, value: s.id } });
+
+              response(filtered);
+          },
+          focus: function () {
+              // prevent value inserted on focus
+              return false;
+          },
+          select: function (event, ui) {
+              var terms = split(this.value);
+              // remove the current input
+              terms.pop();
+              // add the selected item
+              terms.push(ui.item.label);
+              // add placeholder to get the comma-and-space at the end
+              terms.push("");
+              this.value = terms.join(", ");
+              return false;
+          }
+      });
+   });
+});
+    
+</script>
+}
+
+<div>
+    <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class="form-control" })
+    <button id="search">Search</button>
+</div>
+
+<div id="results"></div>

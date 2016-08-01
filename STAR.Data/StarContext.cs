@@ -10,9 +10,8 @@ namespace STAR.Data {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<StarContext, Migrations.Configuration>("StarContext"));
         }
 
-        public virtual DbSet<Skill> Skills { get; set; }
-
         public virtual DbSet<Contractor> Contractors { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -28,6 +27,15 @@ namespace STAR.Data {
                     new IndexAnnotation(new IndexAttribute() { IsUnique = true }));
 
             modelBuilder.Entity<Skill>().Property(s => s.Description).HasMaxLength(256);
+
+            modelBuilder.Entity<Skill>()
+                .HasMany<Contractor>(s => s.Contractors)
+                .WithMany(c => c.Skills)
+                .Map(cs => {
+                    cs.MapLeftKey("SkillId");
+                    cs.MapRightKey("ContractorId");
+                    cs.ToTable("SkillContractor");
+                });
         }
     }
 }

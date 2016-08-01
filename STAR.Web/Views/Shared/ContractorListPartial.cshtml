@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Contractor>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skills)
+        </th>
+    </tr>
+
+    @foreach (var contractor in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => contractor.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => contractor.LastName)
+            </td>
+            <td>
+
+                @{var totalSkills = contractor.Skills.Count;
+                    var searchedSkills = ViewBag.ConvertedIds;
+                    if (totalSkills > 5) {
+                        totalSkills = 5;
+                    }
+                    //For skill in a given contractor list it, if it was searched for, bold it
+                    for (int i = 0; i < totalSkills; i++) {
+                        var contractorSkillId = contractor.Skills.ElementAt(i).SkillId;
+                        var contractorSkillName = contractor.Skills.ElementAt(i).Name;
+                        var lastIndex = contractor.Skills.Count - 1;
+                        if (i < searchedSkills.Count) {
+                            if (i == lastIndex) {
+                                <span><strong> @contractorSkillName</strong></span>
+                            }
+                            else {
+                                <span><strong> @contractorSkillName</strong>,</span>
+                            }
+                        }
+                        else if (i == lastIndex) {
+                                <span> @contractorSkillName </span>
+                                }
+                        else {
+                                <span> @contractorSkillName,</span>
+                                }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
