@@ -236,7 +236,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-	<Content Include="Views\Shared\ContractorListPartial.cshtml" />
+    <Content Include="Views\Shared\ContractorListPartial.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Contractor\Index.cshtml" />
@@ -244,7 +244,6 @@
     <Content Include="Views\Contractor\Delete.cshtml" />
     <Content Include="Views\Skill\Details.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
-    <Content Include="Views\Skill\SkillExists.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -254,7 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\Extensions.csproj">
