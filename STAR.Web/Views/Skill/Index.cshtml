@@ -2,30 +2,18 @@
 
 <h2>Skills</h2>
 
-<a href="@Url.Action("Details")" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>
-</a>
+<a href="@Url.Action("Details")" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a>
 
-@if ((Model ?? new Skill[] { }).Any())
-
- 
-{
-    if (Model.Count() == 1)
-    {<p>There is @Model.Count() skill</p>}
-    else
-    {<p>There are @Model.Count() skills</p>}
+@if ((Model ?? new Skill[] { }).Any()){
+    if (Model.Count() == 1) {
+        <p>There is @Model.Count() skill</p>
+    } else {
+        <p>There are @Model.Count() skills</p>}
     <ul>
-        @foreach (Skill s in Model.OrderBy(s => s.Name))
-
-
-
-
-
-        {
+        @foreach (Skill s in Model.OrderBy(s => s.Name)) {
             <li><strong>@s.Name</strong> @if (s.Description != null) {<span>-</span> } @s.Description</li>
-            }
-        </ul>
         }
-else
-{
+    </ul>
+} else {
     <p>There are no skills!  @Html.ActionLink("Add one!", "Details")</p>
 }

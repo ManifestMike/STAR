@@ -229,7 +229,6 @@
     <Content Include="Views\Contractor\Delete.cshtml" />
     <Content Include="Views\Skill\Details.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
-    <Content Include="Views\Skill\SkillExists.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
