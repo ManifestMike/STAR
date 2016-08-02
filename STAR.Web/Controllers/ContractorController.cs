@@ -1,5 +1,7 @@
 ﻿using STAR.Data;
 using STAR.Domain;
+using STAR.Web.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -46,23 +48,30 @@ namespace STAR.Web.Controllers {
 
         //Update/Save Details
         [HttpPost]
-        public ActionResult Details(Contractor contractor) {
-            if (contractor.ID == 0) {
-                var contractors = context.Contractors.Include(c => c.Skills).Where(c => c.FirstName == contractor.FirstName).Where(c => c.LastName == contractor.LastName).FirstOrDefault();
+        public ActionResult Details(PostContractorViewModel contractor) {
+            var selectedSkills = contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
 
-                if (context.Contractors.Any(x => x.FirstName == contractor.FirstName && x.LastName == contractor.LastName)) {
-                    return View();
-                }
-                context.Contractors.Add(new Domain.Contractor { FirstName = contractor.FirstName, LastName = contractor.LastName });
+            var skills = (from s in context.Skills
+                         where selectedSkills.Contains(s.SkillId)
+                         select s).ToList();
+
+            if (contractor.Id == 0) {
+                context.Contractors.Add(new Contractor {
+                    FirstName = contractor.FirstName,
+                    LastName = contractor.LastName,
+                    Skills = skills
+                });
 
                 context.SaveChanges();
 
                 return View();
             }
             else {
-                Contractor updatedContractor = context.Contractors.Where(c => c.ID == contractor.ID).FirstOrDefault();
+                var updatedContractor = context.Contractors
+                    .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
                 updatedContractor.FirstName = contractor.FirstName;
                 updatedContractor.LastName = contractor.LastName;
+                updatedContractor.Skills = skills;
 
                 context.SaveChanges();
 
