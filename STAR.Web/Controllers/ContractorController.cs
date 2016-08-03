@@ -5,6 +5,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace STAR.Web.Controllers {
     public class ContractorController : Controller {
@@ -14,26 +15,41 @@ namespace STAR.Web.Controllers {
             this.context = context as StarContext;
         }
 
+        private List<Contractor> SearchBySkills(int[] selectedSkillIds) {
+            var convertedIds = selectedSkillIds.ToList();
+            ViewBag.ConvertedIds = convertedIds;
+            //given a list of skills return all contractors with those skills
+            using (context) {
+                var contractors = context.Contractors
+                              .Include(c => c.Skills)
+                              .Where(c => c.Skills.Select(s => s.SkillId)
+                                    .Intersect(selectedSkillIds).Count() == selectedSkillIds.Count()).ToList();
+          
+                //Put the selected skills in the front of the list
+                MoveSkillsToFront(contractors, convertedIds);
+                return contractors;
+            }
+        }
+
+        public void MoveSkillsToFront(List<Contractor> contractors, List<int> skillIds) {
+            MoveSkillsToFrontHelper(contractors, skillIds);
+        }
+        private void MoveSkillsToFrontHelper(List<Contractor> contractors, List<int> skillIds) {
+            foreach (var person in contractors) {
+                person.MoveToFront(skillIds);
+            }
+        }
+
+        private List<Contractor> getContractorList() {
+            return context.Contractors.ToList();
+        }
+
         public ActionResult Index(int[] selectedSkillIds) {
             if (selectedSkillIds != null) {
-                var convertedIds = selectedSkillIds.ToList();
-                ViewBag.ConvertedIds = convertedIds;
-
-                //given a list of skills return all contractors with those skills
-                using (context) {
-                    //Query 
-                    var contractors = context.Contractors
-                                  .Include(c => c.Skills)
-                                  .Where(c => c.Skills.Select(s => s.SkillId)
-                                        .Intersect(selectedSkillIds).Count() == selectedSkillIds.Count()).ToList();
-                    //Put the selected skills in the front of the list
-                    foreach (var person in contractors) {
-                        person.MoveToFront(convertedIds);
-                    }
+                var contractors = SearchBySkills(selectedSkillIds);
                     return PartialView("ContractorListPartial", contractors);
                 }
-            }
-            return View(context.Contractors.ToList());
+            return View(getContractorList());
         }
 
         //autopopulate Details
