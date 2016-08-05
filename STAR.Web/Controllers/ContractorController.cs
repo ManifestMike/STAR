@@ -5,6 +5,8 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace STAR.Web.Controllers {
     public class ContractorController : Controller {
@@ -14,69 +16,98 @@ namespace STAR.Web.Controllers {
             this.context = context as StarContext;
         }
 
+        private List<Contractor> SearchBySkills(int[] selectedSkillIds) {
+            var convertedIds = selectedSkillIds.ToList();
+            ViewBag.ConvertedIds = convertedIds;
+            //given a list of skills return all contractors with those skills
+            using (context) {
+                var contractors = context.Contractors
+                              .Include(c => c.Skills)
+                              .Where(c => c.Skills.Select(s => s.SkillId)
+                                    .Intersect(selectedSkillIds).Count() == selectedSkillIds.Count()).ToList();
+
+                //Put the selected skills in the front of the list
+                MoveSkillsToFront(contractors, convertedIds);
+                return contractors;
+            }
+        }
+
+        public void MoveSkillsToFront(List<Contractor> contractors, List<int> skillIds) {
+            MoveSkillsToFrontHelper(contractors, skillIds);
+        }
+        private void MoveSkillsToFrontHelper(List<Contractor> contractors, List<int> skillIds) {
+            foreach (var person in contractors) {
+                person.MoveToFront(skillIds);
+            }
+        }
+
+        private List<Contractor> getContractorList() {
+            return context.Contractors.ToList();
+        }
+
         public ActionResult Index(int[] selectedSkillIds) {
             if (selectedSkillIds != null) {
-                var convertedIds = selectedSkillIds.ToList();
-                ViewBag.ConvertedIds = convertedIds;
-
-                //given a list of skills return all contractors with those skills
-                using (context) {
-                    //Query 
-                    var contractors = context.Contractors
-                                  .Include(c => c.Skills)
-                                  .Where(c => c.Skills.Select(s => s.SkillId)
-                                        .Intersect(selectedSkillIds).Count() == selectedSkillIds.Count()).ToList();
-                    //Put the selected skills in the front of the list
-                    foreach (var person in contractors) {
-                        person.MoveToFront(convertedIds);
-                    }
-                    return PartialView("ContractorListPartial", contractors);
-                }
+                var contractors = SearchBySkills(selectedSkillIds);
+                return PartialView("ContractorListPartial", contractors);
             }
-            return View(context.Contractors.ToList());
+            return View(getContractorList());
         }
 
         //autopopulate Details
         public ActionResult Details(int? id) {
             if (!id.HasValue) {
-                return View();
+                return View(new Contractor());
             }
 
             var contractor = context.Contractors.Include(c => c.Skills).Where(c => c.ID == id).FirstOrDefault();
             return View(contractor);
         }
-
+        
         //Update/Save Details
         [HttpPost]
         public ActionResult Details(PostContractorViewModel contractor) {
-            var selectedSkills = contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
-
-            var skills = (from s in context.Skills
-                         where selectedSkills.Contains(s.SkillId)
-                         select s).ToList();
-
-            if (contractor.Id == 0) {
-                context.Contractors.Add(new Contractor {
-                    FirstName = contractor.FirstName,
-                    LastName = contractor.LastName,
-                    Skills = skills
-                });
-
+            if (ModelState.IsValid) {
+                var skills = matchSelectedSkillsToSkills(contractor.SkillIds);
+                
+                if (contractor.Id == 0) {
+                    addNewContractor(contractor, skills); 
+                }
+                else {
+                    updateContractor(contractor, skills);
+                }
                 context.SaveChanges();
-
-                return View();
+                return View("Index", getContractorList());
             }
-            else {
-                var updatedContractor = context.Contractors
-                    .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
-                updatedContractor.FirstName = contractor.FirstName;
-                updatedContractor.LastName = contractor.LastName;
-                updatedContractor.Skills = skills;
 
-                context.SaveChanges();
+            return View(contractor);
+        }
 
-                return View(updatedContractor);
-            }
+        private IEnumerable<int> splitSelectedSkills(string SkillIds) {
+            return SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
+        }
+
+        public List<Skill> matchSelectedSkillsToSkills(string SkillIds) {
+            var selectedSkills = splitSelectedSkills(SkillIds);
+
+            return (from s in context.Skills
+                    where selectedSkills.Contains(s.SkillId)
+                    select s).ToList();
+        }
+
+        public void addNewContractor(PostContractorViewModel contractor, List<Skill> skills) {
+            context.Contractors.Add(new Contractor {
+                FirstName = contractor.FirstName,
+                LastName = contractor.LastName,
+                Skills = skills
+            });
+        }
+
+        public void updateContractor(PostContractorViewModel contractor, List<Skill> skills) {
+            var updatedContractor = context.Contractors
+                         .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
+            updatedContractor.FirstName = contractor.FirstName;
+            updatedContractor.LastName = contractor.LastName;
+            updatedContractor.Skills = skills;
         }
 
         [HttpGet]
