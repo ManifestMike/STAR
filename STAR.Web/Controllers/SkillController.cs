@@ -51,7 +51,11 @@ namespace STAR.Web.Controllers
             {
                 return View();
             }
-            return View();
+            Skill skill = context.Skills.Where(c => c.SkillId == Id).FirstOrDefault();
+            SkillModel model = new SkillModel();
+            model.SkillName = skill.Name;
+            model.Description = skill.Description;
+            return View(model);
         }
 
         public ActionResult Index()
