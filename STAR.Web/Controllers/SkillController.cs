@@ -21,35 +21,25 @@ namespace STAR.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.ID == 0)
+                if (context.Skills.Any(x => x.Name == model.SkillName))
                 {
-                    if (context.Skills.Any(x => x.Name == model.SkillName))
-                    {
-                        ModelState.AddModelError("Name", $"There is already a skill with the name {model.SkillName}.");
-                        return View(model);
-                    }
-                    else
-                    {
-                        context.Skills.Add(new Domain.Skill { Name = model.SkillName, Description = model.Description });
-                        context.SaveChanges();
-                        return GetIndexView();
-                    }
-                }
-
-                Skill updatedSkill = context.Skills.Where(c => c.Name == model.SkillName).FirstOrDefault();
-                if (context.Skills.Any(x => x.Name != model.SkillName))
-                {
-                    ModelState.AddModelError("Name", $"There is not already a skill with the name {model.SkillName}.");
+                    ModelState.AddModelError("Name", $"There is already a skill with the name {model.SkillName}.");
                     return View(model);
                 }
+
+                if (model.ID == 0)
+                {
+                    context.Skills.Add(new Skill { Name = model.SkillName, Description = model.Description });
+                }
+
                 else
                 {
+                    Skill updatedSkill = context.Skills.Where(c => c.SkillId == model.ID).FirstOrDefault();
                     updatedSkill.Name = model.SkillName;
                     updatedSkill.Description = model.Description;
-
-                    context.SaveChanges();
-                    return GetIndexView();
                 }
+                context.SaveChanges();
+                return GetIndexView();
             }
             return View(model);
         }
@@ -107,6 +97,8 @@ namespace STAR.Web.Controllers
 
         private ActionResult GetIndexView()
         {
+            RouteData.Values.Remove("id");
+            RouteData.Values.Remove("action");
             return View("Index", context.Skills.ToList());
         }
     }
