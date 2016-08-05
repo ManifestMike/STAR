@@ -14,5 +14,6 @@ namespace STAR.Web.Models
         public string SkillName { get; set; }
         [StringLength(256)]
         public string Description { get; set; }
+        public int ID { get; set; }
     }
 }
