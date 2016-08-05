@@ -32,13 +32,37 @@ namespace STAR.Web.Tests {
 
             Assert.That(model, Has.Count.EqualTo(0));
         }
+
         [Test]
-        public void PostBlankFirstNameYeildsInvalid() {
+        public void PostBlankFirstNameYieldsInvalid() {
             var mockContext = new Mock<StarContext>();
             var controller = new ContractorController(mockContext.Object);
             var contractor = new PostContractorViewModel();
             contractor.Id = 1;
             contractor.LastName = "Judd";
+            contractor.SkillIds = "1,2,3";
+
+            controller.ModelState.Clear();
+            var validationContext = new ValidationContext(contractor, null, null);
+            var validationResults = new List<ValidationResult>();
+            Validator.TryValidateObject(contractor, validationContext, validationResults, true);
+            foreach (var v in validationResults) {
+                foreach (var name in v.MemberNames) {
+                    controller.ModelState.AddModelError(name, v.ErrorMessage);
+                }
+            }
+
+            var result = controller.Details(contractor) as ViewResult;
+            Assert.False(result.ViewData.ModelState.IsValid);
+        }
+
+        [Test]
+        public void PostBlankLastNameYieldsInvalid() {
+            var mockContext = new Mock<StarContext>();
+            var controller = new ContractorController(mockContext.Object);
+            var contractor = new PostContractorViewModel();
+            contractor.Id = 1;
+            contractor.FirstName = "Jim";
             contractor.SkillIds = "1,2,3";
 
             controller.ModelState.Clear();

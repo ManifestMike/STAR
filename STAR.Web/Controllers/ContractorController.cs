@@ -63,36 +63,51 @@ namespace STAR.Web.Controllers {
             return View(contractor);
         }
 
+        public IEnumerable<int> splitSelectedSkills(PostContractorViewModel contractor) {
+            return contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
+        }
+
+        public List<Skill> matchSelectedSkillsToSkills(IEnumerable<int> selectedSkills) {
+            return (from s in context.Skills
+                    where selectedSkills.Contains(s.SkillId)
+                    select s).ToList();
+        }
+        
+        public void addNewContractor(PostContractorViewModel contractor, List<Skill> skills) {
+            context.Contractors.Add(new Contractor {
+                FirstName = contractor.FirstName,
+                LastName = contractor.LastName,
+                Skills = skills
+            });
+        }
+
+        public void updateContractor(PostContractorViewModel contractor, List<Skill> skills) {
+           var updatedContractor = context.Contractors
+                        .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
+            updatedContractor.FirstName = contractor.FirstName;
+            updatedContractor.LastName = contractor.LastName;
+            updatedContractor.Skills = skills;
+        }
+        
         //Update/Save Details
         [HttpPost]
         public ActionResult Details(PostContractorViewModel contractor) {
             if (ModelState.IsValid) {
-                var selectedSkills = contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
-
-                var skills = (from s in context.Skills
-                              where selectedSkills.Contains(s.SkillId)
-                              select s).ToList();
-
+                
+                var selectedSkills = splitSelectedSkills(contractor);
+                var skills = matchSelectedSkillsToSkills(selectedSkills);
+                
                 if (contractor.Id == 0) {
-                    context.Contractors.Add(new Contractor {
-                        FirstName = contractor.FirstName,
-                        LastName = contractor.LastName,
-                        Skills = skills
-                    });
-
+                    addNewContractor(contractor, skills);
                     context.SaveChanges();
+
                     return View("Index", getContractorList());
                 }
                 else {
-                    var updatedContractor = context.Contractors
-                        .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
-                    updatedContractor.FirstName = contractor.FirstName;
-                    updatedContractor.LastName = contractor.LastName;
-                    updatedContractor.Skills = skills;
-
+                    updateContractor(contractor, skills);
                     context.SaveChanges();
 
-                    return View(updatedContractor);
+                    return View("Index", getContractorList());
                 }
             }
 
