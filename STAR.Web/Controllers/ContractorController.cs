@@ -63,11 +63,13 @@ namespace STAR.Web.Controllers {
             return View(contractor);
         }
 
-        public IEnumerable<int> splitSelectedSkills(PostContractorViewModel contractor) {
-            return contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
+        private IEnumerable<int> splitSelectedSkills(string SkillIds) {
+            return SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
         }
 
-        public List<Skill> matchSelectedSkillsToSkills(IEnumerable<int> selectedSkills) {
+        public List<Skill> matchSelectedSkillsToSkills(string SkillIds) {
+            var selectedSkills = splitSelectedSkills(SkillIds);
+
             return (from s in context.Skills
                     where selectedSkills.Contains(s.SkillId)
                     select s).ToList();
@@ -93,22 +95,16 @@ namespace STAR.Web.Controllers {
         [HttpPost]
         public ActionResult Details(PostContractorViewModel contractor) {
             if (ModelState.IsValid) {
-                
-                var selectedSkills = splitSelectedSkills(contractor);
-                var skills = matchSelectedSkillsToSkills(selectedSkills);
+                var skills = matchSelectedSkillsToSkills(contractor.SkillIds);
                 
                 if (contractor.Id == 0) {
-                    addNewContractor(contractor, skills);
-                    context.SaveChanges();
-
-                    return View("Index", getContractorList());
+                    addNewContractor(contractor, skills); 
                 }
                 else {
                     updateContractor(contractor, skills);
-                    context.SaveChanges();
-
-                    return View("Index", getContractorList());
                 }
+                context.SaveChanges();
+                return View("Index", getContractorList());
             }
 
             return View(contractor);
