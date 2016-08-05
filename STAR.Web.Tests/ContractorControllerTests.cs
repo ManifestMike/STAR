@@ -3,7 +3,9 @@ using NUnit.Framework;
 using STAR.Data;
 using STAR.Domain;
 using STAR.Web.Controllers;
+using STAR.Web.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -29,6 +31,28 @@ namespace STAR.Web.Tests {
             var model = view.Model as List<Contractor>;
 
             Assert.That(model, Has.Count.EqualTo(0));
+        }
+        [Test]
+        public void PostBlankFirstNameYeildsInvalid() {
+            var mockContext = new Mock<StarContext>();
+            var controller = new ContractorController(mockContext.Object);
+            var contractor = new PostContractorViewModel();
+            contractor.Id = 1;
+            contractor.LastName = "Judd";
+            contractor.SkillIds = "1,2,3";
+
+            controller.ModelState.Clear();
+            var validationContext = new ValidationContext(contractor, null, null);
+            var validationResults = new List<ValidationResult>();
+            Validator.TryValidateObject(contractor, validationContext, validationResults, true);
+            foreach (var v in validationResults) {
+                foreach (var name in v.MemberNames) {
+                    controller.ModelState.AddModelError(name, v.ErrorMessage);
+                }
+            }
+
+            var result = controller.Details(contractor) as ViewResult;
+            Assert.False(result.ViewData.ModelState.IsValid);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace STAR.Web.Controllers {
     public class ContractorController : Controller {
@@ -24,7 +25,7 @@ namespace STAR.Web.Controllers {
                               .Include(c => c.Skills)
                               .Where(c => c.Skills.Select(s => s.SkillId)
                                     .Intersect(selectedSkillIds).Count() == selectedSkillIds.Count()).ToList();
-          
+
                 //Put the selected skills in the front of the list
                 MoveSkillsToFront(contractors, convertedIds);
                 return contractors;
@@ -47,15 +48,15 @@ namespace STAR.Web.Controllers {
         public ActionResult Index(int[] selectedSkillIds) {
             if (selectedSkillIds != null) {
                 var contractors = SearchBySkills(selectedSkillIds);
-                    return PartialView("ContractorListPartial", contractors);
-                }
+                return PartialView("ContractorListPartial", contractors);
+            }
             return View(getContractorList());
         }
 
         //autopopulate Details
         public ActionResult Details(int? id) {
             if (!id.HasValue) {
-                return View();
+                return View(new Contractor());
             }
 
             var contractor = context.Contractors.Include(c => c.Skills).Where(c => c.ID == id).FirstOrDefault();
@@ -65,34 +66,37 @@ namespace STAR.Web.Controllers {
         //Update/Save Details
         [HttpPost]
         public ActionResult Details(PostContractorViewModel contractor) {
-            var selectedSkills = contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
+            if (ModelState.IsValid) {
+                var selectedSkills = contractor.SkillIds?.Split(',').Select(s => Convert.ToInt32(s)) ?? new int[] { };
 
-            var skills = (from s in context.Skills
-                         where selectedSkills.Contains(s.SkillId)
-                         select s).ToList();
+                var skills = (from s in context.Skills
+                              where selectedSkills.Contains(s.SkillId)
+                              select s).ToList();
 
-            if (contractor.Id == 0) {
-                context.Contractors.Add(new Contractor {
-                    FirstName = contractor.FirstName,
-                    LastName = contractor.LastName,
-                    Skills = skills
-                });
+                if (contractor.Id == 0) {
+                    context.Contractors.Add(new Contractor {
+                        FirstName = contractor.FirstName,
+                        LastName = contractor.LastName,
+                        Skills = skills
+                    });
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                    return View("Index", getContractorList());
+                }
+                else {
+                    var updatedContractor = context.Contractors
+                        .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
+                    updatedContractor.FirstName = contractor.FirstName;
+                    updatedContractor.LastName = contractor.LastName;
+                    updatedContractor.Skills = skills;
 
-                return View();
+                    context.SaveChanges();
+
+                    return View(updatedContractor);
+                }
             }
-            else {
-                var updatedContractor = context.Contractors
-                    .Include(c => c.Skills).FirstOrDefault(c => c.ID == contractor.Id);
-                updatedContractor.FirstName = contractor.FirstName;
-                updatedContractor.LastName = contractor.LastName;
-                updatedContractor.Skills = skills;
 
-                context.SaveChanges();
-
-                return View(updatedContractor);
-            }
+            return View(contractor);
         }
 
         [HttpGet]
