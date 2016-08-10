@@ -12,5 +12,8 @@ namespace STAR.Web.Models {
         public string JobName { get; set; }
         [StringLength(512)]
         public string Description { get; set; }
+        [Required]
+        [DisplayName("Position Taken?")]
+        public bool IsFilled { get; set; }
     }
 }
