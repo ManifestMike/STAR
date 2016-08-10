@@ -35,11 +35,6 @@ namespace STAR.Web.Controllers
                 context.SaveChanges();
 
 
-
-
-
-
-
                 return GetIndexView();
             }
 
