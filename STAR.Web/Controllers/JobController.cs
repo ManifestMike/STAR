@@ -35,9 +35,9 @@ namespace STAR.Web.Controllers
 
                 else
                 {
-                    Skill updatedSkill = context.Skills.Where(c => c.SkillId == model.ID).FirstOrDefault();
-                    updatedSkill.Name = model.JobName;
-                    updatedSkill.Description = model.Description;
+                    Job updatedJob = context.Jobs.Where(c => c.JobId == model.ID).FirstOrDefault();
+                    updatedJob.Name = model.JobName;
+                    updatedJob.Description = model.Description;
                 }
                 context.SaveChanges();
                 return GetIndexView();
@@ -52,10 +52,10 @@ namespace STAR.Web.Controllers
             {
                 return View();
             }
-            Skill skill = context.Skills.Where(c => c.SkillId == Id).FirstOrDefault();
+            Job job = context.Jobs.Where(c => c.JobId == Id).FirstOrDefault();
             JobModel model = new JobModel();
-            model.JobName = skill.Name;
-            model.Description = skill.Description;
+            model.JobName = job.Name;
+            model.Description = job.Description;
             return View(model);
         }
         public ActionResult Index()
