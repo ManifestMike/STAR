@@ -233,6 +233,7 @@
     <Content Include="Views\Skill\Index.cshtml" />
     <Content Include="Views\Skill\Delete.cshtml" />
     <Content Include="Views\Job\Index.cshtml" />
+    <Content Include="Views\Job\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

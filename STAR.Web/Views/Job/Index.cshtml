@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Job>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Details")
 </p>
 <table class="table">
     <tr>
@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.isFilled)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) |
+            @Html.ActionLink("Update", "Update", new { id=item.JobId }) |
             @Html.ActionLink("Details", "Details", new { id=item.JobId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.JobId })
         </td>
