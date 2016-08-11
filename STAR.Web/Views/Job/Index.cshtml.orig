@@ -72,7 +72,12 @@
             @Html.DisplayFor(modelItem => item.isFilled)
         </td>
         <td>
+<<<<<<< HEAD
+            @Html.ActionLink("Update", "Update", new { id=item.JobId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.JobId }) |
+=======
             @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) |
+>>>>>>> a5e0dbcfe5dea86272c4e52189980c8fc3b35848
             @Html.ActionLink("Delete", "Delete", new { id=item.JobId })
         </td>
     </tr>
