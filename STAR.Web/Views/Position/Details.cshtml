@@ -1,6 +1,6 @@
 ﻿@using STAR.Web.Models;
-@model JobModel
-<h2>Jobs</h2>
+@model PositionModel
+<h2>Positions</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -9,8 +9,8 @@
     <div class="form-horizontal">
         <div class="form-group">
             @*@Html.ValidateFor(x => x.SkillName)*@
-            @Html.LabelFor(m => m.JobName)
-            @Html.TextBoxFor(m => m.JobName, new { @class = "form-control" })
+            @Html.LabelFor(m => m.PositionName)
+            @Html.TextBoxFor(m => m.PositionName, new { @class = "form-control" })
         </div>
         <div class="form-group">
             @*@Html.ValidateFor(x => x.Description)*@

@@ -10,33 +10,33 @@ using STAR.Domain;
 
 namespace STAR.Web.Controllers
 {
-    public class JobController : Controller {
+    public class PositionController : Controller {
         private StarContext context;
 
-        public JobController(DbContext context) {
+        public PositionController(DbContext context) {
             this.context = context as StarContext;
         }
 
         [HttpPost]
-        public ActionResult Details(JobModel model)
+        public ActionResult Details(PositionModel model)
         {
             if (ModelState.IsValid)
             {
-                if (context.Jobs.Any(x => x.Name == model.JobName))
+                if (context.Positions.Any(x => x.Name == model.PositionName))
                 {
-                    ModelState.AddModelError("Name", $"There is already a skill with the name {model.JobName}.");
+                    ModelState.AddModelError("Name", $"There is already a skill with the name {model.PositionName}.");
                     return View(model);
                 }
 
                 if (model.ID == 0)
                 {
-                    context.Jobs.Add(new Job { Name = model.JobName, Description = model.Description });
+                    context.Positions.Add(new Position { Name = model.PositionName, Description = model.Description });
                 }
 
                 else
                 {
                     Skill updatedSkill = context.Skills.Where(c => c.SkillId == model.ID).FirstOrDefault();
-                    updatedSkill.Name = model.JobName;
+                    updatedSkill.Name = model.PositionName;
                     updatedSkill.Description = model.Description;
                 }
                 context.SaveChanges();
@@ -53,14 +53,14 @@ namespace STAR.Web.Controllers
                 return View();
             }
             Skill skill = context.Skills.Where(c => c.SkillId == Id).FirstOrDefault();
-            JobModel model = new JobModel();
-            model.JobName = skill.Name;
+            PositionModel model = new PositionModel();
+            model.PositionName = skill.Name;
             model.Description = skill.Description;
             return View(model);
         }
         public ActionResult Index()
         {
-            return View(context.Jobs);
+            return View(context.Positions);
         }
 
         public ActionResult Details()
@@ -72,7 +72,7 @@ namespace STAR.Web.Controllers
         {
             RouteData.Values.Remove("id");
             RouteData.Values.Remove("action");
-            return View("Index", context.Jobs.ToList());
+            return View("Index", context.Positions.ToList());
         }
     }
 }

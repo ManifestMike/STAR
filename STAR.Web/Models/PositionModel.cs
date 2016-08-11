@@ -6,10 +6,10 @@ using System.Linq;
 using System.Web;
 
 namespace STAR.Web.Models {
-    public class JobModel {
+    public class PositionModel {
         [Required]
-        [DisplayName("Job")]
-        public string JobName { get; set; }
+        [DisplayName("Position")]
+        public string PositionName { get; set; }
         [StringLength(256)]
         public string Description { get; set; }
         public bool isFilled { get; set; }
