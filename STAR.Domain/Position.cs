@@ -12,6 +12,6 @@ namespace STAR.Domain {
 
         public string Description { get; set; }
 
-        public bool isFilled { get; set; } 
+        public int? contractorId { get; set; } 
     }
 }

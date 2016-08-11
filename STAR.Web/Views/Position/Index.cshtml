@@ -51,7 +51,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            Filled
+            Availability
         </th>
         <th></th>
     </tr>
@@ -69,7 +69,13 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isFilled)
+            @if(item.contractorId == null) {
+                <span style="color: green"> Available </span>
+            }
+            else {
+                <span> Filled </span>
+            }
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PositionId }) |
