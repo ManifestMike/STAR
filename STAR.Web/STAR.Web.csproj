@@ -234,6 +234,7 @@
     <Content Include="Views\Skill\Delete.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\Position\Details.cshtml" />
+    <Content Include="Views\Position\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

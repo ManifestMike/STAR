@@ -22,12 +22,6 @@ namespace STAR.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (context.Positions.Any(x => x.Name == model.PositionName))
-                {
-                    ModelState.AddModelError("Name", $"There is already a skill with the name {model.PositionName}.");
-                    return View(model);
-                }
-
                 if (model.ID == 0)
                 {
                     context.Positions.Add(new Position { Name = model.PositionName, Description = model.Description });
@@ -35,9 +29,9 @@ namespace STAR.Web.Controllers
 
                 else
                 {
-                    Skill updatedSkill = context.Skills.Where(c => c.SkillId == model.ID).FirstOrDefault();
-                    updatedSkill.Name = model.PositionName;
-                    updatedSkill.Description = model.Description;
+                    Position updatedPosition = context.Positions.Where(c => c.PositionId == model.ID).FirstOrDefault();
+                    updatedPosition.Name = model.PositionName;
+                    updatedPosition.Description = model.Description;
                 }
                 context.SaveChanges();
                 return GetIndexView();
@@ -52,10 +46,10 @@ namespace STAR.Web.Controllers
             {
                 return View();
             }
-            Skill skill = context.Skills.Where(c => c.SkillId == Id).FirstOrDefault();
+            Position position = context.Positions.Where(c => c.PositionId == Id).FirstOrDefault();
             PositionModel model = new PositionModel();
-            model.PositionName = skill.Name;
-            model.Description = skill.Description;
+            model.PositionName = position.Name;
+            model.Description = position.Description;
             return View(model);
         }
         public ActionResult Index()
@@ -67,6 +61,31 @@ namespace STAR.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return View();
+            }
+            Position position = context.Positions.Find(id);
+            if (position == null)
+            {
+                return HttpNotFound();
+            }
+            return View(position);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Position position = context.Positions.Find(id);
+            context.Positions.Remove(position);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         private ActionResult GetIndexView()
         {
