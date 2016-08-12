@@ -141,16 +141,28 @@ namespace STAR.Web.Controllers {
             return RedirectToAction("Index");
         }
 
-        public ActionResult AvailableContractors() {
+        
+        public ActionResult AvailableContractors(int positionId) {
+            var availableContractors = getAvailableContractors();
+            ViewBag.positionId = positionId;
+        
+            return View(availableContractors);
+        }
+        private IEnumerable<Contractor> getAvailableContractors() {
             var positions = context.Positions;
-            var availableContractors = context.Contractors
+            return context.Contractors
                 .Where(c => !positions
                     .Select(p => p.contractorId)
                     .Contains(c.ID));
-            ViewBag.isAvailable = true;
-        
-            return View("Index", availableContractors);
         }
+
+        public ActionResult AssignContractorToPosition(int positionId, int contractorId) {
+            var position = context.Positions.Where(x => x.PositionId == positionId).FirstOrDefault();
+            position.contractorId = contractorId;
+            return View("Index", getAvailableContractors());
+        }
+
+
 
         private ActionResult GetIndexView()
         {

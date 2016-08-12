@@ -41,7 +41,7 @@ else {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Email</button>
-                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor")'"> <span class="glyphicon glyphicon-ok"></span> Assign</button>
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor", new { positionId = position.PositionId })'"> <span class="glyphicon glyphicon-ok"></span> Assign</button>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@ else {
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td align="left">
-            @if(item.contractorId == null) {
+            @if (item.contractorId == null) {
                 <span style="color: green"> Available </span>
             }
             else {
@@ -87,7 +87,7 @@ else {
 
         </td>
         <td align="left">
-            @Html.ActionLink("Assign", "AvailableContractors", "Contractor") |
+            @Html.ActionLink("Assign", "AvailableContractors", "Contractor", new { positionId = item.PositionId }, null) |
             @Html.ActionLink("Update", "Details", new { id=item.PositionId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.PositionId })
         </td>
