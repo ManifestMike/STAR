@@ -129,5 +129,15 @@ namespace STAR.Web.Controllers {
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
+        public ActionResult AvailableContractors() {
+            var positions = context.Positions;
+            var availableContractors = context.Contractors
+                .Where(c => !positions
+                    .Select(p => p.contractorId)
+                    .Contains(c.ID));
+            return View("Index", availableContractors);
+        }
     }
 }
