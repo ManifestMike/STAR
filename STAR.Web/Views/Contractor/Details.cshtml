@@ -81,7 +81,7 @@
     <div class="form-group">
         @{  var skills = ViewBag.skillnames; }
         <label for="txtSearch" class="control-label">Skills: </label>
-        <input type="text" value="@skills" id="txtSeach" class="form-control"/>
+        <input type="text" value="@skills" id="txtSearch" class="form-control"/>
         
         @Html.Hidden("skillIds", Model.SkillIds, new { id = "skillIds" })
     </div>
