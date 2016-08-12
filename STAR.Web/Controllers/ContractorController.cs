@@ -147,6 +147,8 @@ namespace STAR.Web.Controllers {
                 .Where(c => !positions
                     .Select(p => p.contractorId)
                     .Contains(c.ID));
+            ViewBag.isAvailable = true;
+        
             return View("Index", availableContractors);
         }
 

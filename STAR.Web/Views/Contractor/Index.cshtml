@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<Contractor>
 
-<h2>Contractors</h2>
-
+@if (ViewBag.isAvailable == true) {
+    <h2>Available Contractors</h2>
+}else {
+    <h2> Contractors </h2>
+}
 <a href="@Url.Action("Details")" class="btn btn-primary">
     Create New
     <span class="glyphicon glyphicon-plus"></span>
@@ -15,6 +18,7 @@ else {
 }
 
 
+
 <table class="table">
     <tr>
         <th>
@@ -23,9 +27,7 @@ else {
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skills)
-        </th>
+        <th></th>
     </tr>
 
     @foreach (var contractor in Model)
@@ -36,7 +38,7 @@ else {
             </td>
             <td>
                 @Html.DisplayFor(m => contractor.LastName)
-            </td>
+            </td>            
             <td>
                 @Html.ActionLink("Update", "Details", new { id = contractor.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = contractor.ID })

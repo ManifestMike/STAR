@@ -62,7 +62,7 @@ else {
         <th>
             Availability
         </th>
-        <th></th>
+        <th>Options</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -77,7 +77,7 @@ else {
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        <td>
+        <td align="left">
             @if(item.contractorId == null) {
                 <span style="color: green"> Available </span>
             }
@@ -86,7 +86,8 @@ else {
             }
 
         </td>
-        <td>
+        <td align="left">
+            @Html.ActionLink("Assign", "AvailableContractors", "Contractor") |
             @Html.ActionLink("Update", "Details", new { id=item.PositionId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.PositionId })
         </td>
