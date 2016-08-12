@@ -7,7 +7,7 @@ namespace STAR.Web.Models {
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
+        
         public string SkillIds { get; set; }
     }
 }
