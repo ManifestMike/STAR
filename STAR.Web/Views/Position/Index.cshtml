@@ -6,6 +6,12 @@
     Create New <span class="glyphicon glyphicon-plus"></span>
 </a>
 <br />
+@if ((Model ?? new Position[] { }).Any()) {
+    <p>There's @Model.Count() position(s)</p>
+}
+else {
+    <p> There are no positions!</p>
+}
 
 @foreach (var position in Model) {
     <div class="modal fade" id="con-@position.PositionId" tabindex="-1" role="dialog">
