@@ -3,7 +3,7 @@
 <h2>Skills</h2>
 
 <a href="@Url.Action("Details")" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span>Create New</a>
+    Create New <span class="glyphicon glyphicon-plus"></span></a>
 @if ((Model ?? new Skill[] { }).Any())
 {
     <p>There are @Model.Count() Skills</p>

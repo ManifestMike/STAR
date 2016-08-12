@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<Position>
 
-<p>
-    @Html.ActionLink("Create New", "Details")
-</p>
+<h2>Positions</h2>
+
+<a href="@Url.Action("Details")" class="btn btn-primary">
+    Create New <span class="glyphicon glyphicon-plus"></span>
+</a>
+<br />
 
 @foreach (var position in Model) {
     <div class="modal fade" id="con-@position.PositionId" tabindex="-1" role="dialog">
