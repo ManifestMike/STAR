@@ -69,6 +69,18 @@
     <Compile Include="Migrations\201608102302047_AddJobs.Designer.cs">
       <DependentUpon>201608102302047_AddJobs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608112159486_AttemptToRename.cs" />
+    <Compile Include="Migrations\201608112159486_AttemptToRename.Designer.cs">
+      <DependentUpon>201608112159486_AttemptToRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608112208449_changeColumntoContractorId.cs" />
+    <Compile Include="Migrations\201608112208449_changeColumntoContractorId.Designer.cs">
+      <DependentUpon>201608112208449_changeColumntoContractorId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608112230372_addpendingchanges.cs" />
+    <Compile Include="Migrations\201608112230372_addpendingchanges.Designer.cs">
+      <DependentUpon>201608112230372_addpendingchanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +110,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608102302047_AddJobs.resx">
       <DependentUpon>201608102302047_AddJobs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608112159486_AttemptToRename.resx">
+      <DependentUpon>201608112159486_AttemptToRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608112208449_changeColumntoContractorId.resx">
+      <DependentUpon>201608112208449_changeColumntoContractorId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608112230372_addpendingchanges.resx">
+      <DependentUpon>201608112230372_addpendingchanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

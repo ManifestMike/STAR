@@ -1,25 +1,25 @@
-﻿@model IEnumerable<Job>
+﻿@model IEnumerable<Position>
 
 <p>
     @Html.ActionLink("Create New", "Details")
 </p>
 
-@foreach (var job in Model) {
-    <div class="modal fade" id="con-@job.JobId" tabindex="-1" role="dialog">
+@foreach (var position in Model) {
+    <div class="modal fade" id="con-@position.PositionId" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
-                        @Html.DisplayFor(c => job.Name)'s Details
+                        @Html.DisplayFor(c => position.Name)'s Details
                 </h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-5 col-sm-offset-1">
-                        <p><strong>@Html.DisplayNameFor(model => model.Name)</strong>: @Html.DisplayFor(m => job.Name)</p>
+                        <p><strong>@Html.DisplayNameFor(model => model.Name)</strong>: @Html.DisplayFor(m => position.Name)</p>
                         <p>
-                            <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => job.Description)                                                                
+                            <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)                                                                
                         </p>
                     </div>
                     <div class="col-sm-6">
@@ -51,7 +51,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            Filled
+            Availability
         </th>
         <th></th>
     </tr>
@@ -59,7 +59,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#con-@item.JobId">
+            <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#con-@item.PositionId">
             </button>
         </td>
         <td>
@@ -69,16 +69,17 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isFilled)
+            @if(item.contractorId == null) {
+                <span style="color: green"> Available </span>
+            }
+            else {
+                <span> Filled </span>
+            }
+
         </td>
         <td>
-<<<<<<< HEAD
-            @Html.ActionLink("Update", "Update", new { id=item.JobId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.JobId }) |
-=======
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) |
->>>>>>> a5e0dbcfe5dea86272c4e52189980c8fc3b35848
-            @Html.ActionLink("Delete", "Delete", new { id=item.JobId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.PositionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PositionId })
         </td>
     </tr>
 }

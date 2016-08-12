@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace STAR.Domain {
-    public class Job {
+    public class Position {
 
-        public int JobId { get; set; }
+        public int PositionId { get; set; }
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public bool isFilled { get; set; } 
+        public int? contractorId { get; set; } 
     }
 }
