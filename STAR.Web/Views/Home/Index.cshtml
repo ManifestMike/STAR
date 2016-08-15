@@ -67,15 +67,38 @@
       });
    });
 });
-    
 </script>
 }
 
-<div class="form-inline">
-    <div class="form-group">
-        <label for="txtSearch">Skills: </label> @Html.TextBox("searchTerm", null, new { id = "txtSearch", @class = "form-control" })
+<div class="form margin-bottom">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <label for="skillSearch" class="margin-right">Search Contractors by Skill</label>
+                <div class="row">
+                    <div class="col-lg-3">
+                        @Html.TextBox("searchTerm", null, new { id = "Search Contractors", @class = "form-control" })
+                    </div>
+                </div>
+        </div>
     </div>
-    <button id="search" class="btn btn-default">Search</button>
+    <div class="row">
+        <div class="col-sm-2">
+            <button id="search" type="submit" name="searchForContractors" class="btn btn-default">Search</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="results"></div>
+    </div>
 </div>
 
-<div id="results"></div>
+
+@*  **  Markup for checkboxes when we filter "search" by more than just "skills"  **  *@
+@*<div class="form-group row">
+        <div class="col-sm-12">
+            <label for="skillSearch" class="margin-right">Search by Skill: @Html.CheckBox("searchTerm", new { id = "txtSearch" })</label>
+            <label for="nameSearch" class="margin-right">Search by Name: @Html.CheckBox("nameTerm", new { id = "txtSearch" })</label>
+            <label for="statusSearch" class="margin-right">Search by Status: @Html.CheckBox("statusTerm", new { id = "txtSearch" })</label>
+        </div>
+    </div>*@

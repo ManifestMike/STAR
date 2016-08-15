@@ -3,27 +3,96 @@
     padding-bottom: 20px;
 }
 
+/* This isn't necessary, bootstrap takes care of this.*/
 /* Set padding to keep content from hitting the edges */
-.body-content {
+/*.body-content {
     padding-left: 15px;
     padding-right: 15px;
+}*/
+
+
+/*a.btn > span.glyphicon {
+    margin-left: 8px;
+}*/
+
+/* Colors **********************************/
+.yellow{
+    color:#ffd800; 
 }
+
+/* Inputs **********************************/
+input[type="checkbox"]{
+    position:relative;
+    top:2px;
+}
+
+/* chrome; safari; opera */
+/* firefox 19 ++ */
+/* firefox 18 - */
+/* ie */
+.form-control::-webkit-input-placeholder {color: #d7d5d5;}
+.form-control::-moz-placeholder {color: #d7d5d5;}
+.form-control:-moz-placeholder {color: #d7d5d5;}
+.form-control:-ms-input-placeholder { color: #d7d5d5;}
+
+
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
-textarea {
+textarea{
     max-width: 280px;
-}
+}*/
 
-a.btn > span.glyphicon {
-    margin-left: 8px;
-}
-
-.yellow{
-    color:#ffd800;
-}
-
+/* Formatting *******************************/
 .margin-left{
     margin-left: 10px;
+}
+.margin-left-5{
+    margin-left: 5px;
+}
+.margin-left-15{
+    margin-left: 15px;
+}
+.margin-left-20{
+    margin-left: 20px;
+}
+
+.margin-right{
+    margin-right: 10px;
+}
+.margin-right-5{
+    margin-left: 5px;
+}
+.margin-right-15{
+    margin-left: 15px;
+}
+.margin-right-20{
+    margin-right: 20px;
+}
+
+.margin-top{
+    margin-top: 10px;
+}
+.margin-top-5{
+    margin-top: 5px;
+}
+.margin-top-15{
+    margin-top: 15px;
+}
+.margin-top-20{
+    margin-top: 20px;
+}
+
+.margin-bottom{
+    margin-bottom: 10px;
+}
+.margin-bottom-5{
+    margin-bottom: 5px;
+}
+.margin-bottom-15{
+    margin-bottom: 15px;
+}
+.margin-bottom-20{
+    margin-bottom: 20px;
 }

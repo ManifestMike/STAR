@@ -3,70 +3,131 @@
 <h2>Details</h2>
 
 @section scripts {
-<script type="text/javascript">
-    $(function () {
-        function split(val) {
-            return val.split(/,\s*/);
-        }
-        function extractLast(term) {
-            return split(term).pop();
-        }
+    <script type="text/javascript">
+        $(function () {
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
 
-        //Get values from database to help autocomplete values
-        $.get('@Url.Action("Search", "Skill")')
-            .done(function (skills) {
-                //Autocomplete functionality
-                $("#txtSearch")
-                  // don't navigate away from the field on tab when selecting an item
-                  .on("keydown", function (event) {
-                      if (event.keyCode === $.ui.keyCode.TAB &&
-                          $(this).autocomplete("instance").menu.active) {
-                          event.preventDefault();
-                      }
-                  })
-                  .autocomplete({
-                      minLength: 0,
-                      source: function (request, response) {
-                          var term = extractLast(request.term);
-                          var re = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
-                          var filtered = skills.
-                              filter(function (s) {
-                                  return re.test(s.name);
-                              }).
-                              map(function (s) { return { label: s.name, value: s.id } });
+            //Get values from database to help autocomplete values
+            $.get('@Url.Action("Search", "Skill")')
+                .done(function (skills) {
+                    //Autocomplete functionality
+                    $("#txtSearch")
+                      // don't navigate away from the field on tab when selecting an item
+                      .on("keydown", function (event) {
+                          if (event.keyCode === $.ui.keyCode.TAB &&
+                              $(this).autocomplete("instance").menu.active) {
+                              event.preventDefault();
+                          }
+                      })
+                      .autocomplete({
+                          minLength: 0,
+                          source: function (request, response) {
+                              var term = extractLast(request.term);
+                              var re = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
+                              var filtered = skills.
+                                  filter(function (s) {
+                                      return re.test(s.name);
+                                  }).
+                                  map(function (s) { return { label: s.name, value: s.id } });
 
-                          response(filtered);
-                      },
-                      focus: function () {
-                          // prevent value inserted on focus
-                          return false;
-                      },
-                      select: function (event, ui) {
-                          var terms = split(this.value);
+                              response(filtered);
+                          },
+                          focus: function () {
+                              // prevent value inserted on focus
+                              return false;
+                          },
+                          select: function (event, ui) {
+                              var terms = split(this.value);
 
-                          // remove the current input
-                          terms.pop();
-                          // add the selected item
-                          terms.push(ui.item.label);
+                              // remove the current input
+                              terms.pop();
+                              // add the selected item
+                              terms.push(ui.item.label);
 
-                          // get the ids - do it here before the placeholder is added
-                          var skillIds = terms.
-                            map(function (s) { return skills.find(function (sk) { return sk.name.toLowerCase() === s.trim().toLowerCase(); }).id; });
-                          $("#skillIds").val(skillIds);
+                              // get the ids - do it here before the placeholder is added
+                              var skillIds = terms.
+                                map(function (s) { return skills.find(function (sk) { return sk.name.toLowerCase() === s.trim().toLowerCase(); }).id; });
+                              $("#skillIds").val(skillIds);
 
+                              // add placeholder to get the comma-and-space at the end
+                              terms.push("");
+                              this.value = terms.join(", ");
 
-                          // add placeholder to get the comma-and-space at the end
-                          terms.push("");
-                          this.value = terms.join(", ");
-
-                          return false;
-                      }
-                  });
+                              return false;
+                          }
+                      });
+                });
         });
-    });
-</script>
+    </script>
 }
 
+@using(Html.BeginForm("Details", "Contractor", new { id = Model.ID, name = "contractorForm" }, FormMethod.Post, new { @class = "form-horizontal" })) {
+    @Html.AntiForgeryToken()
+        <div class="form-group row">
+            <div class="col-sm-6">
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            </div>
+            <div class="col-sm-6">
+                <label>Primary Phone</label>
+                <input type="text" class="form-control" placeholder="Primary Phone" />
+                @*@Html.LabelFor(m => m.PrimaryPhone, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.PrimaryPhone, new { @class = "form-control", placeholder = "Primary Number" })*@
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            </div>
+            <div class="col-sm-6">
+                <label>Secondary Phone</label>
+                <input type="text" class="form-control" placeholder="Secondary Phone" />
+                @*@Html.LabelFor(m => m.SecondaryPhone, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.SecondaryPhone, new { @class = "form-control", placeholder = "Secondary Number" })*@
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <label>Primary Emal</label>
+                <input type="text" class="form-control" placeholder="Primary Email" />                
+                @*@Html.LabelFor(m => m.PrimaryEmail, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.PrimaryEmail, new { @class = "form-control", placeholder = "Primary Email" })*@
+            </div>
+            <div class="col-sm-6">
+                <label>Secondary Emal</label>
+                <input type="text" class="form-control" placeholder="Secondary Email" />
+                @*@Html.LabelFor(m => m.SecondaryEmail, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.SecondaryEmail, new { @class = "form-control", placeholder = "Secondary Email" })*@
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <label for="txtSearch" class="control-label">Skills: </label>
+                @Html.TextArea("txtSearch", Model.Skills.Select(s => s.Name).Delimit(), new { id = "txtSearch", @class = "form-control", placeholder = "Skills" })
+                @Html.Hidden("skillIds", Model.Skills.Select(s => s.SkillId).Delimit(), new { id = "skillIds" })
+            </div>
+            <div class="col-sm-6">
+                <label>Notes</label>
+                <textarea class="form-control" placeholder="Limit to 512 characters"></textarea>
+                @*@Html.LabelFor(m => m.Notes, new { @class = "control-label" })
+                    @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", placeholder = "Notes" })*@
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-12 pull-right">
+                <input class="btn btn-default pull-right" type="submit" value="Save" />
+                <div class="pull-right margin-right">
+                    @Html.ActionLink("Cancel", "Index", new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    }
 @using (Html.BeginForm("Details", "Contractor", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" })) {
     @Html.AntiForgeryToken()
 
