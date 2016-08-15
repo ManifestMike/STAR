@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Contractor>
 
-<h2>Contractors</h2>
+<h2>Contractors 
+    <a href="@Url.Action("Details")" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+</h2>
 
-<a href="@Url.Action("Details")" class="btn btn-primary">
-    Create New
-    <span class="glyphicon glyphicon-plus"></span>
-</a>
 
 @if ((Model ?? new Contractor[] { }).Any()) {
     <p>There are @Model.Count() contractors</p>
@@ -18,31 +18,28 @@ else {
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Skills)
         </th>
     </tr>
-
-    @foreach (var contractor in Model)
-    {
+    @foreach(Contractor c in Model.OrderBy(c => c.LastName)){
         <tr>
             <td>
-                @Html.DisplayFor(m => contractor.FirstName)
+                @Html.DisplayFor(m => c.LastName)
             </td>
             <td>
-                @Html.DisplayFor(m => contractor.LastName)
+                @Html.DisplayFor(m => c.FirstName)
             </td>
             <td>
-                @Html.ActionLink("Update", "Details", new { id = contractor.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = contractor.ID })
+                @Html.ActionLink("Update", "Details", new { id = c.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = c.ID })
 
             </td>
         </tr>
     }
-
 </table>

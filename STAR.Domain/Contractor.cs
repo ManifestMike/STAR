@@ -10,6 +10,16 @@ namespace STAR.Domain {
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+        //[DisplayName("Primary Phone")]
+        //public string PrimaryPhone { get; set; }
+        //[DisplayName("Other Phone")]
+        //public string OtherPhone { get; set; }
+        //[DisplayName("Primary Email")]
+        //public string PrimaryEmail { get; set; }
+        //[DisplayName("Secondary Email")]
+        //public string SecondaryEmail { get; set; }
+        //[DisplayName("Notes")]
+        //public string Notes { get; set; }
 
         public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
 

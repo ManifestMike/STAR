@@ -18,6 +18,11 @@ namespace STAR.Data {
 
             modelBuilder.Entity<Contractor>().Property(c => c.FirstName).IsRequired();
             modelBuilder.Entity<Contractor>().Property(c => c.LastName).IsRequired();
+            //modelBuilder.Entity<Contractor>().Property(c => c.PrimaryPhone).IsRequired();
+            //modelBuilder.Entity<Contractor>().Property(c => c.OtherPhone);
+            //modelBuilder.Entity<Contractor>().Property(c => c.PrimaryEmail).IsRequired();
+            //modelBuilder.Entity<Contractor>().Property(c => c.SecondaryEmail);
+            //modelBuilder.Entity<Contractor>().Property(c => c.Notes).HasMaxLength(512);
 
             modelBuilder.Entity<Skill>().Property(s => s.Name)
                 .HasMaxLength(40)
