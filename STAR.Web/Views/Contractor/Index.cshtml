@@ -8,7 +8,7 @@
 </a>
 
 @if ((Model ?? new Contractor[] { }).Any()) {
-    <p>There are @Model.Count() contractors</p>
+    <p>There's @Model.Count() contractor(s)</p>
 }
 else {
     <p>There are no contractors!  @Html.ActionLink("Add one!", "Details")</p>

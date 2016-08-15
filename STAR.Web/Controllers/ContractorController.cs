@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using Extensions;
 
 namespace STAR.Web.Controllers {
     public class ContractorController : Controller {
@@ -50,17 +51,26 @@ namespace STAR.Web.Controllers {
                 var contractors = SearchBySkills(selectedSkillIds);
                 return PartialView("ContractorListPartial", contractors);
             }
-            return View(getContractorList());
+            //return View(getContractorList());
+            return GetIndexView();
         }
 
         //autopopulate Details
         public ActionResult Details(int? id) {
             if (!id.HasValue) {
-                return View(new Contractor());
+                return View(new PostContractorViewModel());
             }
-
+            
             var contractor = context.Contractors.Include(c => c.Skills).Where(c => c.ID == id).FirstOrDefault();
-            return View(contractor);
+            ViewBag.skillnames = contractor.Skills.Select(s => s.Name).Delimit();
+
+            return View(new PostContractorViewModel
+            {
+                FirstName = contractor.FirstName,
+                LastName = contractor.LastName,
+                Id = contractor.ID,
+                SkillIds = contractor.Skills.Select(s => s.SkillId).Delimit()
+            });
         }
         
         //Update/Save Details
@@ -76,7 +86,8 @@ namespace STAR.Web.Controllers {
                     updateContractor(contractor, skills);
                 }
                 context.SaveChanges();
-                return View("Index", getContractorList());
+                //return View("Index", getContractorList());
+                return GetIndexView();
             }
 
             return View(contractor);
@@ -128,6 +139,13 @@ namespace STAR.Web.Controllers {
             context.Contractors.Remove(contractor);
             context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private ActionResult GetIndexView()
+        {
+            RouteData.Values.Remove("id");
+            RouteData.Values.Remove("action");
+            return View("Index", getContractorList());
         }
     }
 }
