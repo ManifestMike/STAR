@@ -160,7 +160,7 @@ namespace STAR.Web.Controllers {
             var position = context.Positions.Where(x => x.PositionId == positionId).FirstOrDefault();
             position.contractorId = contractorId;
             context.SaveChanges();
-            return View("~/Views/Position/Index.cshtml", context.Positions);
+            return RedirectToAction("Index", "Position");
         }
         
 
