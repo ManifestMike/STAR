@@ -14,31 +14,19 @@ else {
     <p>There are no contractors!  @Html.ActionLink("Add one!", "Details")</p>
 }
 
-
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skills)
-        </th>
+        <th>@Html.DisplayNameFor(model => model.LastName)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+        <th></th>
     </tr>
     @foreach(Contractor c in Model.OrderBy(c => c.LastName)){
         <tr>
-            <td>
-                @Html.DisplayFor(m => c.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(m => c.FirstName)
-            </td>
+            <td>@Html.DisplayFor(m => c.LastName)</td>
+            <td>@Html.DisplayFor(m => c.FirstName)</td>
             <td>
                 @Html.ActionLink("Update", "Details", new { id = c.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = c.ID })
-
             </td>
         </tr>
     }

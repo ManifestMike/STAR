@@ -74,7 +74,11 @@
     <div class="form-group row">
         <div class="col-sm-12">
             <label for="skillSearch" class="margin-right">Search Contractors by Skill</label>
-            @Html.TextBox("searchTerm", null, new { id = "Search Contractors", @class = "form-control" })
+                <div class="row">
+                    <div class="col-lg-3">
+                        @Html.TextBox("searchTerm", null, new { id = "Search Contractors", @class = "form-control" })
+                    </div>
+                </div>
         </div>
     </div>
     <div class="row">

@@ -66,9 +66,8 @@
     </script>
 }
 
-@using(Html.BeginForm("Details", "Contractor", new { id = Model.ID }, FormMethod.Post, new { @class = "form-horizontal" })) {
+@using(Html.BeginForm("Details", "Contractor", new { id = Model.ID, name = "contractorForm" }, FormMethod.Post, new { @class = "form-horizontal" })) {
     @Html.AntiForgeryToken()
-    <form name="updateContractor">
         <div class="form-group row">
             <div class="col-sm-6">
                 @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
@@ -128,5 +127,4 @@
                 </div>
             </div>
         </div>
-    </form>
     }
