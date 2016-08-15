@@ -25,6 +25,7 @@ namespace STAR.Web.Controllers
             {
                 if (model.ID == 0)
                 {
+                    ViewBag.positionID = model.ID;
                     context.Positions.Add(new Position { Name = model.PositionName, Description = model.Description });
                 }
 
