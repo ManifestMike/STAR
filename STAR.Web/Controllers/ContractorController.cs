@@ -159,8 +159,10 @@ namespace STAR.Web.Controllers {
         public ActionResult AssignContractorToPosition(int positionId, int contractorId) {
             var position = context.Positions.Where(x => x.PositionId == positionId).FirstOrDefault();
             position.contractorId = contractorId;
-            return View("Index", getAvailableContractors());
+            context.SaveChanges();
+            return View("~/Views/Position/Index.cshtml", context.Positions);
         }
+        
 
 
 
