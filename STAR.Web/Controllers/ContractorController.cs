@@ -137,9 +137,14 @@ namespace STAR.Web.Controllers {
         public ActionResult DeleteConfirmed(int id) {
             Contractor contractor = context.Contractors.Find(id);
             context.Contractors.Remove(contractor);
+            var positionToChange = context.Positions.Where(x => x.contractorId == id).FirstOrDefault();
+            if(positionToChange != null) {
+                positionToChange.contractorId = null;
+            }
             context.SaveChanges();
             return RedirectToAction("Index");
         }
+        
 
         
         public ActionResult AvailableContractors(int positionId) {
@@ -163,9 +168,6 @@ namespace STAR.Web.Controllers {
             return RedirectToAction("Index", "Position");
         }
         
-
-
-
         private ActionResult GetIndexView()
         {
             RouteData.Values.Remove("id");

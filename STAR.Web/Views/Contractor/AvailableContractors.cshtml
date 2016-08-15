@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<Contractor>
-
-@if (ViewBag.isAvailable == true) {
     <h2>Available Contractors</h2>
-}
-else {
-    <h2> Contractors </h2>
-}
+
 <a href="@Url.Action("Details")" class="btn btn-primary">
     Create New
     <span class="glyphicon glyphicon-plus"></span>

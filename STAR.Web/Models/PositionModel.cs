@@ -12,7 +12,7 @@ namespace STAR.Web.Models {
         public string PositionName { get; set; }
         [StringLength(256)]
         public string Description { get; set; }
-        public bool isFilled { get; set; }
         public int ID { get; set; }
+        public PostContractorViewModel contractor { get; set; }
     }
 }

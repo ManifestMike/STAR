@@ -7,6 +7,7 @@ using System.Data.Entity.Validation;
 using STAR.Data;
 using STAR.Web.Models;
 using STAR.Domain;
+using Extensions;
 
 namespace STAR.Web.Controllers
 {
@@ -50,7 +51,22 @@ namespace STAR.Web.Controllers
             PositionModel model = new PositionModel();
             model.PositionName = position.Name;
             model.Description = position.Description;
+            if(position.contractorId != null)
+                model.contractor = getContractorInPosition(position.contractorId, Id);
+
             return View(model);
+        }
+        //This is an odd implementation please review
+        private PostContractorViewModel getContractorInPosition(int? contractorID, int? positionID) {
+            var contractor = context.Contractors
+                                        .Where(c => c.ID == context.Positions
+                                        .Where(p => p.contractorId == contractorID).FirstOrDefault().contractorId).FirstOrDefault();
+            return new PostContractorViewModel {
+                FirstName = contractor.FirstName,
+                Id = contractor.ID,
+                LastName = contractor.LastName,
+                SkillIds = contractor.Skills.Select(s => s.SkillId).Delimit()
+            };
         }
         public ActionResult Index()
         {

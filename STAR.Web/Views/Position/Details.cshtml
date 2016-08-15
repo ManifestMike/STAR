@@ -1,5 +1,6 @@
 ﻿@using STAR.Web.Models;
 @model PositionModel
+
 <h2>Positions</h2>
 @using (Html.BeginForm())
 {
@@ -17,6 +18,14 @@
             @Html.LabelFor(m => m.Description)
             @Html.TextAreaFor(m => m.Description, new { maxlength = 256, @class = "form-control" })
             <p>Max Description Length is 256</p>
+        </div>
+        <div class="form-group">
+            @if (Model.contractor != null) {
+                <span> Current contractor is @Html.DisplayFor(m => m.contractor.FirstName) @Html.DisplayFor(m => m.contractor.LastName) </span>
+            }
+            else {
+                <span> No contractor currently assigned</span>
+            }
         </div>
         <input type="submit" class="btn btn-primary" />
     </div>
