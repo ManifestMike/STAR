@@ -66,12 +66,10 @@ namespace STAR.Web.Controllers
         public ActionResult Search(string term)
         {
             var skills = context.Skills.Select(y => new { name = y.Name, id = y.SkillId });
-
             if (!string.IsNullOrEmpty(term))
             {
                 skills = skills.Where(x => x.name.StartsWith(term));
             }
-
             return Json(skills, JsonRequestBehavior.AllowGet);
         }
 

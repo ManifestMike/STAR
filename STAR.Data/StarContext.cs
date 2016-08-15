@@ -12,6 +12,7 @@ namespace STAR.Data {
 
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -23,6 +24,12 @@ namespace STAR.Data {
             //modelBuilder.Entity<Contractor>().Property(c => c.PrimaryEmail).IsRequired();
             //modelBuilder.Entity<Contractor>().Property(c => c.SecondaryEmail);
             //modelBuilder.Entity<Contractor>().Property(c => c.Notes).HasMaxLength(512);
+
+            modelBuilder.Entity<Position>().Property(s => s.Name)
+                .HasMaxLength(40)
+                .IsRequired();
+
+            modelBuilder.Entity<Position>().Property(s => s.Description).HasMaxLength(256);
 
             modelBuilder.Entity<Skill>().Property(s => s.Name)
                 .HasMaxLength(40)
