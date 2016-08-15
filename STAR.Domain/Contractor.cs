@@ -21,9 +21,8 @@ namespace STAR.Domain {
         //[DisplayName("Notes")]
         //public string Notes { get; set; }
 
-        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();
-
-
+        public ICollection<Skill> Skills { get; set; } = new HashSet<Skill>();        
+        
         //@Pre: takes a list of skill ids 
         //@Post: moves those skills to the front of the list within the Skills ICollection
         public void MoveToFront(List<int> list) {
