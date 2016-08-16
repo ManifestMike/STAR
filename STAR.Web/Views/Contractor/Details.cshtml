@@ -66,7 +66,7 @@
     </script>
 }
 
-@using(Html.BeginForm("Details", "Contractor", new { id = Model.ID, name = "contractorForm" }, FormMethod.Post, new { @class = "form-horizontal" })) {
+@using(Html.BeginForm("Details", "Contractor", new { id = Model.Id, name = "contractorForm" }, FormMethod.Post, new { @class = "form-horizontal" })) {
     @Html.AntiForgeryToken()
         <div class="form-group row">
             <div class="col-sm-6">
@@ -109,12 +109,12 @@
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="txtSearch" class="control-label">Skills: </label>
-                @Html.TextArea("txtSearch", Model.Skills.Select(s => s.Name).Delimit(), new { id = "txtSearch", @class = "form-control", placeholder = "Skills" })
-                @Html.Hidden("skillIds", Model.Skills.Select(s => s.SkillId).Delimit(), new { id = "skillIds" })
+                @Html.TextArea("txtSearch", Model.SkillIds.Select(s => s.SkillName).Delimit(), new { id = "txtSearch", @class = "form-control", placeholder = "Skills" })
+                @Html.Hidden("skillIds", Model.SkillIds.Select(s => s.SkillId).Delimit(), new { id = "skillIds" })
             </div>
             <div class="col-sm-6">
                 <label>Notes</label>
-                <textarea class="form-control" placeholder="Limit to 512 characters"></textarea>
+                <textarea class="form-control" placeholder="Max Length 512 characters" rows="5"></textarea>
                 @*@Html.LabelFor(m => m.Notes, new { @class = "control-label" })
                     @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", placeholder = "Notes" })*@
             </div>

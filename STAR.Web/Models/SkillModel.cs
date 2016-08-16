@@ -10,7 +10,7 @@ namespace STAR.Web.Models
     public class SkillModel
     {
         [Required]
-        [DisplayName("Skill")]
+        [DisplayName("Skill Name")]
         public string SkillName { get; set; }
         [StringLength(256)]
         public string Description { get; set; }

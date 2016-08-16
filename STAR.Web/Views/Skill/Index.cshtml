@@ -1,21 +1,24 @@
 ﻿@model IEnumerable<Skill>
 
-<h2>Skills</h2>
 
-<a href="@Url.Action("Details")" class="btn btn-primary">
-    Create New <span class="glyphicon glyphicon-plus"></span></a>
-@if ((Model ?? new Skill[] { }).Any())
-{
-    <p>There's @Model.Count() skill(s)</p>
+<h2>
+    Skills
+    <a href="@Url.Action("Details")" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+</h2>
+
+
+@if((Model ?? new Skill[] { }).Any()) {
+    <p>There are @Model.Count() Skills</p>
 }
-else
-{
-    <p> There are no skills!@Html.ActionLink("Add one!", "Details") </p>
+else {
+    <p>No Skills have been added.  @Html.ActionLink("Add one!", "Details")</p>
 }
+
 
 
 <table class="table">
-
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -38,7 +41,7 @@ else
                 @Html.DisplayFor(d => skill.Description)
             </td>
             <td>
-                @Html.ActionLink("Update", "Details", new { id = skill.SkillId }) |
+                @Html.ActionLink("Edit", "Details", new { id = skill.SkillId}) |
                 @Html.ActionLink("Delete", "Delete", new { id = skill.SkillId })
             </td>
         </tr>

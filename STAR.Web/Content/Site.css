@@ -19,7 +19,9 @@
 .yellow{
     color:#ffd800; 
 }
-
+.r{
+    color:rgba(255, 255, 255, 0.50)
+}
 /* Inputs **********************************/
 input[type="checkbox"]{
     position:relative;
