@@ -118,28 +118,31 @@ namespace STAR.Web.Controllers
 
         private PositionModel createPositionModel(Position position)
         {
-            PositionModel model = new PositionModel();
+            PostContractorViewModel contractorModel;
             if (position.contractorId != null)
             {
                 var positioncontractor = context.Contractors
                                         .Where(c => c.ID == position.contractorId).FirstOrDefault();
-
-                return new PositionModel
+                contractorModel = new PostContractorViewModel
                 {
-                    PositionName = position.Name,
-                    Description = position.Description,
-                    ID = position.PositionId,
-                    contractor = new PostContractorViewModel
-                    {
-                        Id = positioncontractor.ID,
-                        FirstName = positioncontractor.FirstName,
-                        LastName = positioncontractor.LastName,
-                        SkillIds = positioncontractor.Skills.Select(s => s.SkillId).Delimit()
-                    }
+                    Id = positioncontractor.ID,
+                    FirstName = positioncontractor.FirstName,
+                    LastName = positioncontractor.LastName,
+                    SkillIds = positioncontractor.Skills.Select(s => s.SkillId).Delimit()
                 };
             }
-            return model;
-            
+            else
+            {
+                contractorModel = null;
+            }
+            return new PositionModel
+            {
+                PositionName = position.Name,
+                Description = position.Description,
+                ID = position.PositionId,
+                contractor = contractorModel
+            };
+
         }
     }
             
