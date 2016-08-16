@@ -33,6 +33,9 @@ else
                             <p>
                                 <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)
                             </p>
+                            <p>
+                                <strong>@Html.DisplayNameFor(model => model.contractor) </strong>: @Html.DisplayFor(m => position.contractor.FirstName) @Html.DisplayFor(m => position.contractor.LastName)
+                            </p>
                         </div>
                         <div class="col-sm-6">
                             <p><strong>Company Name</strong>:</p>
