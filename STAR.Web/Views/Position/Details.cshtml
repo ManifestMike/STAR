@@ -25,7 +25,6 @@
                 <p> Current contractor is @Html.DisplayFor(m => m.contractor.FirstName) @Html.DisplayFor(m => m.contractor.LastName).  
                     @Html.ActionLink("Unassign", "Unassign", new { id = Url.RequestContext.RouteData.Values["id"] }, null)
                 </p>
-
             }
             else
             {

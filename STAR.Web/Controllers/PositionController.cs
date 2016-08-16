@@ -71,12 +71,14 @@ namespace STAR.Web.Controllers
         }
         public ActionResult Index()
         {
+            return View(getPositionModelList()); 
+        }
+        private List<PositionModel> getPositionModelList() {
             List<PositionModel> positionList = new List<PositionModel>();
-            foreach(Position p in context.Positions.ToList<Position>())
-            {
+            foreach (Position p in context.Positions.ToList<Position>()) {
                 positionList.Add(createPositionModel(p));
             }
-            return View(positionList);
+            return positionList;
         }
 
         public ActionResult Details()
@@ -137,7 +139,9 @@ namespace STAR.Web.Controllers
         {
             RouteData.Values.Remove("id");
             RouteData.Values.Remove("action");
-            return View("Index", context.Positions.ToList());
+
+
+            return View("Index", getPositionModelList());
         }
 
         private PositionModel createPositionModel(Position position)
