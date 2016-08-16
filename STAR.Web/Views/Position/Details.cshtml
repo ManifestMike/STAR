@@ -22,10 +22,13 @@
         <div class="form-group">
             @Html.LabelFor(m => m.contractor)
             @if (Model != null && Model.contractor != null && ViewBag.positionID != 0) {
-                <p> Current contractor is @Html.DisplayFor(m => m.contractor.FirstName) @Html.DisplayFor(m => m.contractor.LastName). </p>
+                <p> Current contractor is @Html.DisplayFor(m => m.contractor.FirstName) @Html.DisplayFor(m => m.contractor.LastName).  
+                    <button type="button" class="btn btn-default"> Unassign</button>
+                </p>
 
             }
-            else {
+            else
+            {
                 <p> No contractor currently assigned.</p>
             }
         </div>
