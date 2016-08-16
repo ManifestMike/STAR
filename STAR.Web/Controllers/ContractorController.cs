@@ -51,7 +51,6 @@ namespace STAR.Web.Controllers {
                 var contractors = SearchBySkills(selectedSkillIds);
                 return PartialView("ContractorListPartial", contractors);
             }
-            //return View(getContractorList());
             return GetIndexView();
         }
 
@@ -86,7 +85,6 @@ namespace STAR.Web.Controllers {
                     updateContractor(contractor, skills);
                 }
                 context.SaveChanges();
-                //return View("Index", getContractorList());
                 return GetIndexView();
             }
 
@@ -144,8 +142,6 @@ namespace STAR.Web.Controllers {
             context.SaveChanges();
             return RedirectToAction("Index");
         }
-        
-
         
         public ActionResult AvailableContractors(int positionId) {
             var availableContractors = getAvailableContractors();

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Position>
+﻿@model IEnumerable<PositionModel>
 
 <h2>Positions</h2>
 
@@ -6,46 +6,49 @@
     Create New <span class="glyphicon glyphicon-plus"></span>
 </a>
 <br />
-@if ((Model ?? new Position[] { }).Any()) {
+@if ((Model ?? new PositionModel[] { }).Any())
+{
     <p>There's @Model.Count() position(s)</p>
 }
-else {
+else
+{
     <p> There are no positions!</p>
 }
 
-@foreach (var position in Model) {
-    <div class="modal fade" id="con-@position.PositionId" tabindex="-1" role="dialog">
+@foreach (var position in Model)
+{
+    <div class="modal fade" id="con-@position.ID" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
-                        @Html.DisplayFor(c => position.Name)'s Details
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-5 col-sm-offset-1">
-                        <p><strong>@Html.DisplayNameFor(model => model.Name)</strong>: @Html.DisplayFor(m => position.Name)</p>
-                        <p>
-                            <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)                                                                
-                        </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p><strong>Company Name</strong>:</p>
-                        <p><strong>Phone Number</strong>:</p>
-                        <p><strong>Email </strong>:</p>
-                        
+                        @Html.DisplayFor(c => position.PositionName)'s Details
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5 col-sm-offset-1">
+                            <p><strong>@Html.DisplayNameFor(model => model.PositionName)</strong>: @Html.DisplayFor(m => position.PositionName)</p>
+                            <p>
+                                <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>Company Name</strong>:</p>
+                            <p><strong>Phone Number</strong>:</p>
+                            <p><strong>Email </strong>:</p>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Unassign</button>
-                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor", new { positionId = position.PositionId })'"> <span class="glyphicon glyphicon-ok"></span> Assign</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Unassign</button>
+                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor", new { positionId = position.ID })'"> <span class="glyphicon glyphicon-ok"></span> Assign</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 
@@ -54,7 +57,7 @@ else {
     <tr>
         <th> Quick View </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.PositionName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -65,33 +68,35 @@ else {
         <th>Options</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#con-@item.PositionId">
-            </button>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td align="left">
-            @if (item.contractorId == null) {
-                <span style="color: green"> Available </span>
-            }
-            else {
-                <span> Filled </span>
-            }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#con-@item.ID"></button>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td align="left">
+                @if (item.contractor == null)
+                {
+                    <span style="color: green"> Available </span>
+                }
+                else
+                {
+                    <span> Filled </span>
+                }
 
-        </td>
-        <td align="left">
-            @Html.ActionLink("Assign", "AvailableContractors", "Contractor", new { positionId = item.PositionId }, null) |
-            @Html.ActionLink("Update", "Details", new { id=item.PositionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PositionId })
-        </td>
-    </tr>
-}
+            </td>
+            <td align="left">
+                @Html.ActionLink("Assign", "AvailableContractors", "Contractor", new { positionId = item.ID }, null) |
+                @Html.ActionLink("Update", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

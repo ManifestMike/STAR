@@ -71,7 +71,12 @@ namespace STAR.Web.Controllers
         }
         public ActionResult Index()
         {
-            return View(context.Positions);
+            List<PositionModel> positionList = new List<PositionModel>();
+            foreach(Position p in context.Positions.ToList<Position>())
+            {
+                positionList.Add(createPositionModel(p));
+            }
+            return View(positionList);
         }
 
         public ActionResult Details()
@@ -110,5 +115,32 @@ namespace STAR.Web.Controllers
             RouteData.Values.Remove("action");
             return View("Index", context.Positions.ToList());
         }
+
+        private PositionModel createPositionModel(Position position)
+        {
+            PositionModel model = new PositionModel();
+            if (position.contractorId != null)
+            {
+                var positioncontractor = context.Contractors
+                                        .Where(c => c.ID == position.contractorId).FirstOrDefault();
+
+                return new PositionModel
+                {
+                    PositionName = position.Name,
+                    Description = position.Description,
+                    ID = position.PositionId,
+                    contractor = new PostContractorViewModel
+                    {
+                        Id = positioncontractor.ID,
+                        FirstName = positioncontractor.FirstName,
+                        LastName = positioncontractor.LastName,
+                        SkillIds = positioncontractor.Skills.Select(s => s.SkillId).Delimit()
+                    }
+                };
+            }
+            return model;
+            
+        }
     }
+            
 }

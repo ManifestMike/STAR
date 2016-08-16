@@ -181,6 +181,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
@@ -232,10 +236,10 @@
     <Content Include="Views\Skill\Details.cshtml" />
     <Content Include="Views\Skill\Index.cshtml" />
     <Content Include="Views\Skill\Delete.cshtml" />
-    <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\Position\Details.cshtml" />
     <Content Include="Views\Position\Delete.cshtml" />
     <Content Include="Views\Contractor\AvailableContractors.cshtml" />
+    <Content Include="Views\Position\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
