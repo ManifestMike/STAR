@@ -6,11 +6,18 @@
     Create New <span class="glyphicon glyphicon-plus"></span></a>
 @if ((Model ?? new Skill[] { }).Any())
 {
-    <p>There's @Model.Count() skill(s)</p>
+    if (Model.Count() == 1)
+    {
+        <p>There is @Model.Count() skill</p>
+    }
+    else
+    {
+        <p>There are @Model.Count() skills</p>
+    }
 }
 else
 {
-    <p> There are no skills!@Html.ActionLink("Add one!", "Details") </p>
+    <p>There are no skills: @Html.ActionLink("Add Skill", "Details") </p>
 }
 
 

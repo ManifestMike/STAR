@@ -8,11 +8,18 @@
 <br />
 @if ((Model ?? new PositionModel[] { }).Any())
 {
-    <p>There's @Model.Count() position(s)</p>
+    if (Model.Count() == 1)
+    {
+        <p>There is @Model.Count() position</p>
+    }
+    else
+    {
+        <p>There are @Model.Count() positions</p>
+    }
 }
 else
 {
-    <p> There are no positions!</p>
+    <p>There are no positions: @Html.ActionLink("Add Position", "Details")</p>
 }
 
 @foreach (var position in Model)
@@ -44,9 +51,9 @@ else
 
                         </div>
                     </div>
-                </div>
+                </div> 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span> Unassign</button>
+                    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor", new { positionId = position.ID })'"><span class="glyphicon glyphicon-minus" ></span> Unassign</button>
                     <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("AvailableContractors", "Contractor", new { positionId = position.ID })'"> <span class="glyphicon glyphicon-plus"></span> Assign</button>
                 </div>
             </div>
