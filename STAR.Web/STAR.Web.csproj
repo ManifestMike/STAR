@@ -240,6 +240,7 @@
     <Content Include="Views\Position\Delete.cshtml" />
     <Content Include="Views\Contractor\AvailableContractors.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
+    <Content Include="Views\Position\Unassign.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

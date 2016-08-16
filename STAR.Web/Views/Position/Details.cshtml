@@ -23,7 +23,7 @@
             @Html.LabelFor(m => m.contractor)
             @if (Model != null && Model.contractor != null && ViewBag.positionID != 0) {
                 <p> Current contractor is @Html.DisplayFor(m => m.contractor.FirstName) @Html.DisplayFor(m => m.contractor.LastName).  
-                    <button type="button" class="btn btn-default"> Unassign</button>
+                    @Html.ActionLink("Unassign", "Unassign", new { id = Url.RequestContext.RouteData.Values["id"] }, null)
                 </p>
 
             }

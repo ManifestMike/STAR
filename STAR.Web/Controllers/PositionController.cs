@@ -83,6 +83,30 @@ namespace STAR.Web.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        public ActionResult Unassign(int? id)
+        {
+            if(id == null)
+            {
+                return View();
+            }
+            Position position = context.Positions.Find(id);
+            if (position == null)
+            {
+                return HttpNotFound();
+            }
+            return View(position);
+        }
+
+        [HttpPost, ActionName("Unassign")]
+        public ActionResult UnassignConfirmed(int id)
+        {
+            Position position = context.Positions.Find(id);
+            position.contractorId = null;
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public ActionResult Delete(int? id)
