@@ -28,7 +28,6 @@ namespace STAR.Web.Controllers
                     ViewBag.positionID = model.ID;
                     context.Positions.Add(new Position { Name = model.PositionName, Description = model.Description });
                 }
-
                 else
                 {
                     Position updatedPosition = context.Positions.Where(c => c.PositionId == model.ID).FirstOrDefault();
@@ -98,7 +97,7 @@ namespace STAR.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(position);
+            return View(createPositionModel(position));
         }
 
         [HttpPost, ActionName("Unassign")]
@@ -122,7 +121,7 @@ namespace STAR.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(position);
+            return View(createPositionModel(position));
         }
 
         [HttpPost, ActionName("Delete")]
