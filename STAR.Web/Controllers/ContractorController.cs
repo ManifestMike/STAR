@@ -149,6 +149,7 @@ namespace STAR.Web.Controllers {
         
             return View(availableContractors);
         }
+
         private IEnumerable<Contractor> getAvailableContractors() {
             var positions = context.Positions;
             return context.Contractors
