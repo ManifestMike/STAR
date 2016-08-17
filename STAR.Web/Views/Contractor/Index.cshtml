@@ -8,26 +8,118 @@
 
 
 @if ((Model ?? new Contractor[] { }).Any()) {
-    <p>There's @Model.Count() contractor(s)</p>
+    <p><strong>@Model.Count()</strong> Total Contractors</p>
 }
 else {
     <p>There are no contractors.  @Html.ActionLink("Add one!", "Details")</p>
 }
 
+@foreach(Contractor c in Model.OrderBy(c => c.LastName)) {
+    <div class="modal fade" id="con-@c.ID" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><strong>@Html.DisplayFor(m => c.FirstName)'s</strong> Information</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row margin-bottom">
+                        <div class="col-sm-5 col-sm-offset-1">
+                            <p><strong>@Html.DisplayNameFor(model => model.LastName)</strong>: @Html.DisplayFor(model => c.LastName)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>@Html.DisplayNameFor(model => model.FirstName)</strong>: @Html.DisplayFor(m => c.FirstName)</p>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <p><strong>@Html.DisplayNameFor(model => model.Skills)</strong>:
+                                @foreach(Skill s in c.Skills.OrderBy(s => s.Name)) {
+                                    <span> @s.Name </span>
+                                    }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <p><strong>Notes</strong>:</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Email</button>
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+
 <table class="table">
     <tr>
         <th>@Html.DisplayNameFor(model => model.LastName)</th>
         <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+        <th class="text-center">Quick View</th>
         <th></th>
     </tr>
     @foreach(Contractor c in Model.OrderBy(c => c.LastName)){
         <tr>
             <td>@Html.DisplayFor(m => c.LastName)</td>
             <td>@Html.DisplayFor(m => c.FirstName)</td>
-            <td>
-                @Html.ActionLink("Update", "Details", new { id = c.ID }) |
+            <td class="text-center">
+                <span class="glyphicon glyphicon-eye-open quick-view" data-toggle="modal" data-target="#con-@c.ID"></span>
+            </td>
+            <td> 
+                @Html.ActionLink("Edit", "Details", new { id = c.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = c.ID })
             </td>
         </tr>
     }
 </table>
+
+
+<!-- Please save for when we add more contractor fields to the database -->
+
+
+<!-- 
+<div class="row margin-bottom">
+    <div class="col-sm-5 col-sm-offset-1">
+        <p><strong>Primary Phone</strong>:</p>
+    </div>
+    <div class="col-sm-5">
+        <p><strong>Secondary Phone</strong>:</p>
+    </div>
+</div>
+<div class="row margin-bottom">
+    <div class="col-sm-5 col-sm-offset-1">
+        <p><strong>Primary Email</strong>:</p>
+    </div>
+    <div class="col-sm-5">
+        <p><strong>Secondary Email</strong>:</p>
+    </div>
+</div>
+<div class="row margin-bottom">
+    <div class="col-sm-5 col-sm-offset-1">
+        <p><strong>Company Name</strong>:</p>
+    </div>
+    <div class="col-sm-5">
+        <p><strong>Company Number</strong>:</p>
+    </div>
+</div>
+    -->
+@*<p><strong>@Html.DisplayNameFor(model => model.PrimaryPhone)</strong>: @Html.DisplayFor(m => contractor.PrimaryPhone)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.SecondaryPhone)</strong>: @Html.DisplayFor(m => contractor.SecondaryPhone)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.PrimaryEmail)</strong>: @Html.DisplayFor(m => contractor.PrimaryEmail)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.secondaryEmail)</strong>: @Html.DisplayFor(m => contractor.SecondaryEmail)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.CompanyName)</strong @Html.DisplayFor(m => contractor.CompanyName)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.CompanyPhone)</strong>: @Html.DisplayFor(m => contractor.CompanyPhone)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.ContractorSkills)</strong>: @Html.DisplayFor(m => contractor.CompanyName)</p>*@
+
+@*<p><strong>@Html.DisplayNameFor(model => model.Notes)</strong>: @Html.DisplayFor(m => contractor.CompanyPhone)</p>*@

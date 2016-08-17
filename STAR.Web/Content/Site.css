@@ -1,52 +1,33 @@
-﻿body {
+﻿/* Site colors 
+    light-gray = color: #d7d5d5; (placeholder)
+    orange = color: #ff6a00;  (used for hover on icon links or emphasis)
+    yellow = color:#ffd800; 
+*/
+
+/* GLOBAL */
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
-
-/* This isn't necessary, bootstrap takes care of this.*/
-/* Set padding to keep content from hitting the edges */
-/*.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/
-
-
-/*a.btn > span.glyphicon {
-    margin-left: 8px;
-}*/
 
 /* Colors **********************************/
 .yellow{
     color:#ffd800; 
 }
-.r{
-    color:rgba(255, 255, 255, 0.50)
-}
+
+
 /* Inputs **********************************/
 input[type="checkbox"]{
     position:relative;
     top:2px;
 }
 
-/* chrome; safari; opera */
-/* firefox 19 ++ */
-/* firefox 18 - */
-/* ie */
-.form-control::-webkit-input-placeholder {color: #d7d5d5;}
-.form-control::-moz-placeholder {color: #d7d5d5;}
-.form-control:-moz-placeholder {color: #d7d5d5;}
-.form-control:-ms-input-placeholder { color: #d7d5d5;}
+.form-control::-webkit-input-placeholder {color: #d7d5d5;}  /* chrome; safari; opera */
+.form-control::-moz-placeholder {color: #d7d5d5;}  /* firefox 19 ++ */
+.form-control:-moz-placeholder {color: #d7d5d5;}  /* firefox 18 - */
+.form-control:-ms-input-placeholder { color: #d7d5d5;}  /* ie */
 
-
-
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea{
-    max-width: 280px;
-}*/
-
-/* Formatting *******************************/
+/* Formatting Text *************************/
 .margin-left{
     margin-left: 10px;
 }
@@ -98,3 +79,17 @@ textarea{
 .margin-bottom-20{
     margin-bottom: 20px;
 }
+.text-center{
+    text-align:center;
+}
+
+.pointer{
+    cursor:pointer;
+}
+
+.quick-view{
+    cursor:pointer;
+}
+    .quick-view:hover{
+        color: #ff6a00;
+    }

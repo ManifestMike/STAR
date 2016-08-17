@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Position>
 
-<h2>Positions</h2>
-
 <h2>
     Positions
     <a href="@Url.Action("Details")" class="btn btn-default">
@@ -10,78 +8,73 @@
 </h2>
 
 @if((Model ?? new Position[] { }).Any()) {
-    <p>There's @Model.Count() contractor(s)</p>
+    <p><strong>@Model.Count()</strong> Total Positions</p>
     }
 else {
     <p>No Positions have been Created.  @Html.ActionLink("Add one!", "Details")</p>
     }
 
-@foreach (var position in Model) {
+@foreach(var position in Model) {
     <div class="modal fade" id="con-@position.PositionId" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">
-                        @Html.DisplayFor(c => position.Name)'s Details
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-5 col-sm-offset-1">
-                        <p><strong>@Html.DisplayNameFor(model => model.Name)</strong>: @Html.DisplayFor(m => position.Name)</p>
-                        <p>
-                            <strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)                                                                
-                        </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p><strong>Company Name</strong>:</p>
-                        <p><strong>Phone Number</strong>:</p>
-                        <p><strong>Email </strong>:</p>
-                        
+                    <h4 class="modal-title">Job Description for <strong>@Html.DisplayFor(c => position.Name)</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5 col-sm-offset-1">
+                            <p><strong>@Html.DisplayNameFor(model => model.Name)</strong>: @Html.DisplayFor(m => position.Name)</p>
+                            <p><strong>@Html.DisplayNameFor(model => model.Description) </strong>: @Html.DisplayFor(m => position.Description)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><strong>Company Name</strong>:</p>
+                            <p><strong>Phone Number</strong>:</p>
+                            <p><strong>Email </strong>:</p>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Email</button>
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Assign</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Email</button>
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Assign</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-}
+    }
 
 
 
 <table class="table">
     <tr>
-        <th> Quick View </th>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
         <th>Availability</th>
+        <th class="text-center"> Quick View </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
-    <tr>
-        <td>
-            <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-toggle="modal" data-target="#con-@item.PositionId">
-            </button>
-        </td>
-        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-        <td>
-            @if(item.contractorId == null) {
-                <span style="color: green"> Available </span>
-            }
-            else {
-                <span> Filled </span>
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Details", new { id=item.PositionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PositionId })
-        </td>
-    </tr>
-    }
+    @foreach(var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>
+                @if(item.contractorId == null) {
+                    <span style="color: green"> Available </span>
+                    }
+                else {
+                    <span> Filled </span>
+                    }
+            </td>
+            <td class="text-center">
+                <span class="glyphicon glyphicon-eye-open quick-view" data-toggle="modal" data-target="#con-@item.PositionId"></span>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Details", new { id = item.PositionId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PositionId })
+            </td>
+        </tr>
+        }
 </table>

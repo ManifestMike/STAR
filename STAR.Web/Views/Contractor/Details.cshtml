@@ -106,15 +106,16 @@
             @Html.TextBoxFor(m => m.SecondaryEmail, new { @class = "form-control", placeholder = "Secondary Email" })*@
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group">
             <div class="col-sm-6">
+                @{  var skills = ViewBag.skillnames; }
                 <label for="txtSearch" class="control-label">Skills: </label>
-                @Html.TextArea("txtSearch", Model.SkillIds.Select(s => s.SkillName).Delimit(), new { id = "txtSearch", @class = "form-control", placeholder = "Skills" })
-                @Html.Hidden("skillIds", Model.SkillIds.Select(s => s.SkillId).Delimit(), new { id = "skillIds" })
+                <input type="text" value="@skills" id="txtSearch" class="form-control" />
+                @Html.Hidden("skillIds", Model.SkillIds, new { id = "skillIds" })
             </div>
             <div class="col-sm-6">
                 <label>Notes</label>
-                <textarea class="form-control" placeholder="Max Length 512 characters" rows="5"></textarea>
+                <textarea class="form-control" placeholder="Limit to 512 characters"></textarea>
                 @*@Html.LabelFor(m => m.Notes, new { @class = "control-label" })
                     @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", placeholder = "Notes" })*@
             </div>
@@ -128,24 +129,3 @@
             </div>
         </div>
     }
-@using (Html.BeginForm("Details", "Contractor", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" })) {
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @{  var skills = ViewBag.skillnames; }
-        <label for="txtSearch" class="control-label">Skills: </label>
-        <input type="text" value="@skills" id="txtSearch" class="form-control"/>
-        
-        @Html.Hidden("skillIds", Model.SkillIds, new { id = "skillIds" })
-    </div>
-    <input class="btn btn-default" type="submit" value="Save" />
-    @Html.ActionLink("Cancel", "Index", new { @class="btn btn-default" })
-}
