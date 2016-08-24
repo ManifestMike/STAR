@@ -45,5 +45,7 @@ namespace STAR.Data {
                     cs.ToTable("SkillContractor");
                 });
         }
+
+        public System.Data.Entity.DbSet<STAR.Web.Models.LoginModel> LoginModels { get; set; }
     }
 }

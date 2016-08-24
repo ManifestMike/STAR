@@ -212,7 +212,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContractorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
@@ -247,6 +246,7 @@
     <Content Include="Views\Contractor\AvailableContractors.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\Position\Unassign.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

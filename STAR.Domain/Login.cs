@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace STAR.Domain {
     public class Login {
-        public int UserId { get; set; }
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }

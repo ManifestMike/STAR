@@ -11,9 +11,7 @@ namespace STAR.Web.Controllers {
     public class AccountController : Controller {
 
         public ActionResult Index() {
-            using (StarContext db = new StarContext()) {
-                return View(db.Logins.ToList());
-            }
+            return View();
         }
 
         public ActionResult Register() {
@@ -24,7 +22,7 @@ namespace STAR.Web.Controllers {
         public ActionResult Register(LoginModel account) {
             if (ModelState.IsValid) {
                 using (StarContext db = new StarContext()) {
-                    Login newAccount = new Login {FirstName = account.FirstName, LastName = account.LastName, Email = account.Email, Username = account.Username, Password = account.Password, PasswordConfirm = account.ConfirmPassword };
+                    Login newAccount = new Login { FirstName = account.FirstName, LastName = account.LastName, Email = account.Email, Username = account.Username, Password = account.Password, PasswordConfirm = account.ConfirmPassword };
                     db.Logins.Add(newAccount);
                     db.SaveChanges();
                 }
@@ -42,7 +40,7 @@ namespace STAR.Web.Controllers {
             using (StarContext db = new StarContext()) {
                 var usr = db.Logins.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
                 if (usr != null) {
-                    Session["UserId"] = usr.UserId.ToString();
+                    Session["UserId"] = usr.ID.ToString();
                     Session["Username"] = usr.Username.ToString();
                     return RedirectToAction("LoggedIn");
                 }
@@ -53,7 +51,7 @@ namespace STAR.Web.Controllers {
             return View();
         }
         public ActionResult LoggedIn() {
-            if(Session["UserId"] != null) {
+            if (Session["UserId"] != null) {
                 return View();
             }
             else {

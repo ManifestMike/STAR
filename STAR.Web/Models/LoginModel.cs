@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace STAR.Web.Models {
     public class LoginModel {
         [Key]
-        public int UserID { get; set; }
+        public int ID { get; set; }
         
         [Required(ErrorMessage = "Last name is required.")]
         public string FirstName { get; set; }
