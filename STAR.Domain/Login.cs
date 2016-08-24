@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace STAR.Domain {
-    class Login {
+    public class Login {
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
