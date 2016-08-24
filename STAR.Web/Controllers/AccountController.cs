@@ -9,7 +9,7 @@ using STAR.Domain;
 
 namespace STAR.Web.Controllers {
     public class AccountController : Controller {
-        // GET: Login
+
         public ActionResult Index() {
             return View();
         }
