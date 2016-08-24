@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using STAR.Web.Models;
 using STAR.Data;
+using STAR.Domain;
 
 namespace STAR.Web.Controllers {
     public class AccountController : Controller {
@@ -21,7 +22,8 @@ namespace STAR.Web.Controllers {
         public ActionResult Register(LoginModel account) {
             if (ModelState.IsValid) {
                 using (StarContext db = new StarContext()) {
-                    db.Logins.Add(account);
+                    Login newAccount = new Login {FirstName = account.FirstName, LastName = account.LastName, Email = account.Email, Username = account.Username, Password = account.Password, PasswordConfirm = account.ConfirmPassword };
+                    db.Logins.Add(newAccount);
                     db.SaveChanges();
                 }
                 ModelState.Clear();
