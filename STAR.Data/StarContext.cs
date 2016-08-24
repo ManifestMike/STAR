@@ -46,6 +46,8 @@ namespace STAR.Data {
                 });
         }
 
+        //public System.Data.Entity.DbSet<STAR.Web.Models.LoginModel> LoginModels { get; set; }
+
         // public System.Data.Entity.DbSet<STAR.Web.Models.LoginModel> LoginModels { get; set; }
     }
 }
