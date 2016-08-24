@@ -10,7 +10,9 @@ namespace STAR.Web.Controllers {
     public class AccountController : Controller {
         // GET: Login
         public ActionResult Index() {
-            return View();
+            using (StarContext db = new StarContext()) {
+                return View(db.Logins.ToList());
+            }
         }
 
         public ActionResult Register() {
