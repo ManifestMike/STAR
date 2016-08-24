@@ -81,6 +81,14 @@
     <Compile Include="Migrations\201608112230372_addpendingchanges.Designer.cs">
       <DependentUpon>201608112230372_addpendingchanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608241527009_add login table again.cs" />
+    <Compile Include="Migrations\201608241527009_add login table again.Designer.cs">
+      <DependentUpon>201608241527009_add login table again.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241529230_add login table again 2.cs" />
+    <Compile Include="Migrations\201608241529230_add login table again 2.Designer.cs">
+      <DependentUpon>201608241529230_add login table again 2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +127,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608112230372_addpendingchanges.resx">
       <DependentUpon>201608112230372_addpendingchanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241527009_add login table again.resx">
+      <DependentUpon>201608241527009_add login table again.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241529230_add login table again 2.resx">
+      <DependentUpon>201608241529230_add login table again 2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
